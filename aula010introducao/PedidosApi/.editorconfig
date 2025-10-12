@@ -30,12 +30,12 @@ dotnet_naming_rule.public_members_should_be_pascal_case.style    = pascal_case_s
 dotnet_naming_symbols.public_members.applicable_kinds            = property,method,field,event,delegate
 dotnet_naming_symbols.public_members.applicable_accessibilities  = public
 
-# Unused imports - set as warning to ensure removal
-dotnet_diagnostic.IDE0005.severity = warning
+# Unused imports - set as error to ensure removal
+dotnet_diagnostic.IDE0005.severity = error
 
 # Namespace matching the physical directory
-dotnet_diagnostic.IDE0130.severity = warning
-dotnet_style_namespace_match_folder = true:warning
+dotnet_diagnostic.IDE0130.severity = none
+dotnet_style_namespace_match_folder = false
 
 # Indentation and formatting rules
 indent_style = space
