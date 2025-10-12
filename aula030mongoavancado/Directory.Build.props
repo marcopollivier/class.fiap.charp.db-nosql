@@ -1,0 +1,36 @@
+<Project>
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+
+    <!-- Habilita análise estática de código mais flexível -->
+    <AnalysisLevel>latest</AnalysisLevel>
+    <AnalysisMode>Default</AnalysisMode>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+    <WarningsNotAsErrors>CS1591</WarningsNotAsErrors>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+
+    <!-- Habilita suporte para as novas features de C# -->
+    <LangVersion>latest</LangVersion>
+
+    <!-- Documentação opcional -->
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <GenerateDocumentationFiles>true</GenerateDocumentationFiles>
+
+    <!-- Code analysis rules -->
+    <NoWarn>$(NoWarn);CS1591</NoWarn> <!-- Missing XML comment -->
+
+    <!-- Suppress warning about analyzer version -->
+    <_SkipUpgradeNetAnalyzersNuGetWarning>true</_SkipUpgradeNetAnalyzersNuGetWarning>
+
+    <!-- Nullable Reference Types opcional -->
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <!-- Pacotes de analisadores para uso em todo o projeto -->
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="8.0.0" PrivateAssets="all" />
+  </ItemGroup>
+</Project>
+
