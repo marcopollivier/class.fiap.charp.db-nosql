@@ -1,54 +1,28 @@
-using Microsoft.EntityFrameworkCore;
-
-using MongoDB.Driver;
-
-using PedidosApi.Data;
-using PedidosApi.Repositories;
+using PedidosApi.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// MongoDB
-builder.Services.AddSingleton<IMongoClient>(sp =>
-{
-    var connectionString = "mongodb://admin:password123@localhost:27017";
-    return new MongoClient(connectionString);
-});
+// ===== CONFIGURAÇÃO DOS SERVIÇOS =====
 
-builder.Services.AddSingleton<IMongoDatabase>(sp =>
-{
-    var client = sp.GetRequiredService<IMongoClient>();
-    return client.GetDatabase("pedidos");
-});
+// Configuração dos bancos de dados
+builder.Services.AddMongoDb(builder.Configuration);
+builder.Services.AddSqlServer(builder.Configuration);
 
-builder.Services.AddScoped<MongoRepository>();
-
-// SQL Server
-builder.Services.AddDbContext<SqlContext>(options =>
-    options.UseSqlServer("Server=localhost,1433;Database=Pedidos;User Id=sa;Password=Password123!;TrustServerCertificate=true"));
-
-builder.Services.AddScoped<SqlRepository>();
-
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+// Configuração dos serviços da API
+builder.Services.AddApiServices();
+builder.Services.AddSwaggerDocumentation();
 
 var app = builder.Build();
 
-// Criar banco SQL Server
-using (var scope = app.Services.CreateScope())
-{
-    var context = scope.ServiceProvider.GetRequiredService<SqlContext>();
-    context.Database.EnsureCreated();
-}
+// ===== CONFIGURAÇÃO DO PIPELINE =====
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+// Inicialização dos bancos de dados
+app.InitializeSqlServerDatabase();
 
-app.UseHttpsRedirection();
-app.UseAuthorization();
-app.MapControllers();
+// Pipeline de desenvolvimento
+app.ConfigureDevelopmentPipeline();
+
+// Pipeline da aplicação
+app.ConfigureApplicationPipeline();
 
 app.Run();
