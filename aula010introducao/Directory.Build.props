@@ -1,0 +1,23 @@
+<Project>
+  <PropertyGroup>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+    <WarningsNotAsErrors />
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <AnalysisLevel>latest</AnalysisLevel>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <!-- Remove unused usings -->
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    
+    <!-- Code analysis rules -->
+    <NoWarn>$(NoWarn);CS1591</NoWarn> <!-- Missing XML comment -->
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <!-- Suppress warning about analyzer version -->
+    <_SkipUpgradeNetAnalyzersNuGetWarning>true</_SkipUpgradeNetAnalyzersNuGetWarning>
+  </PropertyGroup>
+</Project>
