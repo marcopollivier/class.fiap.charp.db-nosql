@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-
 namespace PedidosApi.Models.Sql;
 
 public class PedidoSql
