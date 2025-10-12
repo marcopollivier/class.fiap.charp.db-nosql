@@ -16,7 +16,8 @@ trim_trailing_whitespace = true
 [*.cs]
 # Code style settings
 dotnet_sort_system_directives_first = true
-dotnet_separate_import_directive_groups = false
+dotnet_separate_import_directive_groups = true
+dotnet_remove_unnecessary_imports = true
 
 # Naming conventions (suggestions only, not mandatory)
 dotnet_naming_style.pascal_case_style.capitalization = pascal_case
