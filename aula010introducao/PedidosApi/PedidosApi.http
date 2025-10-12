@@ -1,0 +1,47 @@
+@PedidosApi_HostAddress = http://localhost:5209
+
+# Teste básico da API
+GET {{PedidosApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
+
+# === MONGODB ENDPOINTS ===
+
+# Criar cliente no MongoDB
+POST {{PedidosApi_HostAddress}}/api/mongo/clientes
+Content-Type: application/json
+
+{
+  "nome": "João Silva",
+  "email": "joao@email.com",
+  "telefone": "(11) 99999-9999"
+}
+
+###
+
+# Obter cliente do MongoDB (substitua {id} pelo ID retornado)
+GET {{PedidosApi_HostAddress}}/api/mongo/clientes/64f5a1b2c3d4e5f6789abc12
+Accept: application/json
+
+###
+
+# === SQL SERVER ENDPOINTS ===
+
+# Criar cliente no SQL Server
+POST {{PedidosApi_HostAddress}}/api/sql/clientes
+Content-Type: application/json
+
+{
+  "nome": "Maria Santos",
+  "email": "maria@email.com",
+  "telefone": "(11) 88888-8888"
+}
+
+###
+
+# Obter cliente do SQL Server (substitua {id} pelo ID retornado)
+GET {{PedidosApi_HostAddress}}/api/sql/clientes/1
+Accept: application/json
+
+###
