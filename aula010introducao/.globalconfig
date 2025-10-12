@@ -1,7 +1,7 @@
 is_global = true
 
 # IDE0005: Using directive is unnecessary
-dotnet_diagnostic.IDE0005.severity = warning
+dotnet_diagnostic.IDE0005.severity = error
 
 # IDE0052: Remove unread private members
 dotnet_diagnostic.IDE0052.severity = warning
@@ -10,7 +10,7 @@ dotnet_diagnostic.IDE0052.severity = warning
 dotnet_diagnostic.IDE0051.severity = warning
 
 # CS8019: Unnecessary using directive
-dotnet_diagnostic.CS8019.severity = warning
+dotnet_diagnostic.CS8019.severity = error
 
 # CA1822: Mark members as static
 dotnet_diagnostic.CA1822.severity = suggestion
