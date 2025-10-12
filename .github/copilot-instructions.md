@@ -10,6 +10,8 @@ Follow Clean Architecture principles and vertical slices.
 Structure code into independent, feature-focused modules separating domain, application, and infrastructure layers.  
 Prioritize maintainability, testability, scalability, and clear boundaries. Consider performance implications at all levels.
 
+Try keep the code commited to git as minimal as possible. Use convertional commits.
+
 When interacting:
 
 - Use these tags in your responses to organize information clearly:  
