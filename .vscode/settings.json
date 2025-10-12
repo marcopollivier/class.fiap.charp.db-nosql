@@ -1,5 +1,5 @@
 {
-  "dotnet.defaultSolution": "disable",
+  // "dotnet.defaultSolution": "aula010introducao/PedidosApi.sln",
   "files.exclude": {
     "**/bin": true,
     "**/obj": true

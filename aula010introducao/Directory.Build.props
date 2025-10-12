@@ -25,7 +25,7 @@
     <_SkipUpgradeNetAnalyzersNuGetWarning>true</_SkipUpgradeNetAnalyzersNuGetWarning>
 
     <!-- Nullable Reference Types opcional -->
-    <Nullable>annotations</Nullable>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <!-- Pacotes de analisadores para uso em todo o projeto -->
