@@ -1,10 +1,16 @@
-.PHONY: lint format
+.PHONY: format
+
+# Define as pastas de aula que contêm projetos .NET
+AULA_DIRS := aula010introducao/PedidosApi
 
 format:
-	dotnet format --verbosity minimal
-	dotnet format analyzers --verbosity minimal
-
-lint:
-	cd aula010introducao/PedidosApi && dotnet format --verbosity minimal
-	cd aula010introducao/PedidosApi && dotnet format analyzers --verbosity minimal
+	@for dir in $(AULA_DIRS); do \
+		echo "Formatando $$dir..."; \
+		cd $$dir && \
+		dotnet format --verbosity minimal && \
+		dotnet format analyzers --verbosity minimal && \
+		dotnet format whitespace --verbosity minimal && \
+		dotnet format analyzers --verbosity minimal --diagnostics IDE0005 && \
+		cd ../..; \
+	done
 

@@ -1,23 +1,31 @@
 <Project>
   <PropertyGroup>
-    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
-    <WarningsAsErrors />
-    <WarningsNotAsErrors />
-    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <!-- Habilita análise estática de código mais flexível -->
     <AnalysisLevel>latest</AnalysisLevel>
+    <AnalysisMode>Default</AnalysisMode>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
-  </PropertyGroup>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
 
-  <PropertyGroup>
-    <!-- Remove unused usings -->
+    <!-- Habilita suporte para as novas features de C# -->
+    <LangVersion>latest</LangVersion>
+
+    <!-- Documentação opcional -->
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
-    
+
     <!-- Code analysis rules -->
     <NoWarn>$(NoWarn);CS1591</NoWarn> <!-- Missing XML comment -->
-  </PropertyGroup>
 
-  <PropertyGroup>
     <!-- Suppress warning about analyzer version -->
     <_SkipUpgradeNetAnalyzersNuGetWarning>true</_SkipUpgradeNetAnalyzersNuGetWarning>
+
+    <!-- Nullable Reference Types opcional -->
+    <Nullable>annotations</Nullable>
   </PropertyGroup>
+
+  <!-- Pacotes de analisadores para uso em todo o projeto -->
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="8.0.0" PrivateAssets="all" />
+  </ItemGroup>
 </Project>
+
