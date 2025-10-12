@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  # DynamoDB Local
+  dynamodb:
+    image: amazon/dynamodb-local:latest
+    container_name: aula06-dynamodb
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    command: ["-jar", "DynamoDBLocal.jar", "-sharedDb", "-dbPath", "/home/dynamodblocal/data"]
+    volumes:
+      - dynamodb_data:/home/dynamodblocal/data
+
+  # DynamoDB Admin (GUI)
+  dynamodb-admin:
+    image: aaronshaf/dynamodb-admin:latest
+    container_name: aula06-dynamodb-admin
+    restart: unless-stopped
+    ports:
+      - "8001:8001"
+    environment:
+      DYNAMO_ENDPOINT: http://dynamodb:8000
+    depends_on:
+      - dynamodb
+
+volumes:
+  dynamodb_data:

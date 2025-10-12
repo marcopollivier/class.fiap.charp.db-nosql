@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  # Redis
+  redis:
+    image: redis:7.2-alpine
+    container_name: aula04-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    command: redis-server --requirepass password123
+    volumes:
+      - redis_data:/data
+
+  # Redis Sentinel (para HA)
+  redis-sentinel:
+    image: redis:7.2-alpine
+    container_name: aula04-redis-sentinel
+    restart: unless-stopped
+    ports:
+      - "26379:26379"
+    command: redis-sentinel /etc/redis/sentinel.conf
+    volumes:
+      - ./sentinel.conf:/etc/redis/sentinel.conf
+    depends_on:
+      - redis
+
+volumes:
+  redis_data:
