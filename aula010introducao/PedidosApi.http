@@ -1,0 +1,90 @@
+@PedidosApi_HostAddress = http://localhost:5000
+
+# === MONGODB ENDPOINTS ===
+
+# Criar cliente no MongoDB
+POST {{PedidosApi_HostAddress}}/api/mongo/clientes
+Content-Type: application/json
+
+{
+  "nome": "João Silva",
+  "email": "joao@email.com"
+}
+
+###
+
+# Obter cliente do MongoDB (substitua {id} pelo ID retornado)
+GET {{PedidosApi_HostAddress}}/api/mongo/clientes/{id}
+Accept: application/json
+
+###
+
+# Criar pedido no MongoDB
+POST {{PedidosApi_HostAddress}}/api/mongo/pedidos
+Content-Type: application/json
+
+{
+  "clienteId": "{clienteId}",
+  "itens": [
+    {
+      "nome": "Produto A",
+      "preco": 10.50,
+      "quantidade": 2
+    },
+    {
+      "nome": "Produto B",
+      "preco": 25.00,
+      "quantidade": 1
+    }
+  ]
+}
+
+###
+
+# Obter pedido do MongoDB (substitua {id} pelo ID retornado)
+GET {{PedidosApi_HostAddress}}/api/mongo/pedidos/{id}
+Accept: application/json
+
+###
+
+# === SQL SERVER ENDPOINTS ===
+
+# Criar cliente no SQL Server
+POST {{PedidosApi_HostAddress}}/api/sql/clientes
+Content-Type: application/json
+
+{
+  "nome": "Maria Santos",
+  "email": "maria@email.com"
+}
+
+###
+
+# Obter cliente do SQL Server (substitua {id} pelo ID retornado)
+GET {{PedidosApi_HostAddress}}/api/sql/clientes/1
+Accept: application/json
+
+###
+
+# Criar pedido no SQL Server
+POST {{PedidosApi_HostAddress}}/api/sql/pedidos
+Content-Type: application/json
+
+{
+  "clienteId": 1,
+  "itens": [
+    {
+      "nome": "Produto C",
+      "preco": 15.75,
+      "quantidade": 3
+    }
+  ]
+}
+
+###
+
+# Obter pedido do SQL Server (substitua {id} pelo ID retornado)
+GET {{PedidosApi_HostAddress}}/api/sql/pedidos/1
+Accept: application/json
+
+###
