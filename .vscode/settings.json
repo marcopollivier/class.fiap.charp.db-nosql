@@ -1,0 +1,30 @@
+{
+  "dotnet.defaultSolution": "disable",
+  "files.exclude": {
+    "**/bin": true,
+    "**/obj": true
+  },
+  "omnisharp.enableEditorConfigSupport": true,
+  "omnisharp.enableRoslynAnalyzers": true,
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit"
+  },
+  "dotnet.completion.showCompletionItemsFromUnimportedNamespaces": true,
+  "dotnet.server.useOmnisharp": false,
+  "dotnet.unitTests.enabled": true,
+  "csharp.semanticHighlighting.enabled": true,
+  "csharp.format.enable": true,
+  "debug.console.fontSize": 14,
+  "debug.console.fontFamily": "Fira Code, Consolas, 'Courier New', monospace",
+  "debug.internalConsoleOptions": "openOnSessionStart",
+  "terminal.integrated.defaultProfile.osx": "zsh",
+  "json.schemas": [
+    {
+      "fileMatch": [
+        "**/appsettings*.json"
+      ],
+      "url": "https://json.schemastore.org/appsettings.json"
+    }
+  ]
+}

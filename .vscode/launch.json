@@ -1,0 +1,33 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "PedidosApi - Launch",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build-pedidosapi",
+      "program": "${workspaceFolder}/aula010introducao/PedidosApi/bin/Debug/net9.0/PedidosApi.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/aula010introducao/PedidosApi",
+      "console": "internalConsole",
+      "stopAtEntry": false,
+      "serverReadyAction": {
+        "action": "openExternally",
+        "pattern": "\\bNow listening on:\\s+(https?://\\S+)",
+        "uriFormat": "%s/swagger"
+      },
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ASPNETCORE_URLS": "https://localhost:7210;http://localhost:5209"
+      },
+      "sourceFileMap": {
+        "/Views": "${workspaceFolder}/Views"
+      }
+    },
+    {
+      "name": "PedidosApi - Attach",
+      "type": "coreclr",
+      "request": "attach"
+    }
+  ]
+}

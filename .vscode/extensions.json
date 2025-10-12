@@ -1,0 +1,11 @@
+{
+  "recommendations": [
+    "ms-dotnettools.csharp",
+    "ms-dotnettools.csdevkit",
+    "mongodb.mongodb-vscode",
+    "ms-azuretools.vscode-docker",
+    "humao.rest-client",
+    "ms-vscode.makefile-tools",
+    "editorconfig.editorconfig"
+  ]
+}
