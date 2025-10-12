@@ -5,7 +5,6 @@
       "name": "PedidosApi - aula010introducao",
       "type": "coreclr",
       "request": "launch",
-      "preLaunchTask": "build-pedidosapi",
       "program": "${workspaceFolder}/aula010introducao/PedidosApi/bin/Debug/net9.0/PedidosApi.dll",
       "args": [],
       "cwd": "${workspaceFolder}/aula010introducao/PedidosApi",
@@ -23,11 +22,6 @@
       "sourceFileMap": {
         "/Views": "${workspaceFolder}/Views"
       }
-    },
-    {
-      "name": "PedidosApi - Attach",
-      "type": "coreclr",
-      "request": "attach"
     }
   ]
 }
