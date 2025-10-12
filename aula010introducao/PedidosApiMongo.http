@@ -1,4 +1,4 @@
-@PedidosApi_HostAddress = http://localhost:5000
+@PedidosApi_HostAddress = http://localhost:5209
 
 # === MONGODB ENDPOINTS ===
 
