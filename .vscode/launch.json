@@ -2,12 +2,12 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "PedidosApi - aula010introducao",
+      "name": "PedidosApi - aula010sqlvsnosql",
       "type": "coreclr",
       "request": "launch",
-      "program": "${workspaceFolder}/aula010introducao/PedidosApi/bin/Debug/net9.0/PedidosApi.dll",
+      "program": "${workspaceFolder}/aula010sqlvsnosql/PedidosApi/bin/Debug/net9.0/PedidosApi.dll",
       "args": [],
-      "cwd": "${workspaceFolder}/aula010introducao/PedidosApi",
+      "cwd": "${workspaceFolder}/aula010sqlvsnosql/PedidosApi",
       "console": "internalConsole",
       "stopAtEntry": false,
       "serverReadyAction": {

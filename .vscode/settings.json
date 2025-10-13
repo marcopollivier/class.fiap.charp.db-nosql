@@ -1,5 +1,5 @@
 {
-  // "dotnet.defaultSolution": "aula010introducao/PedidosApi.sln",
+  // "dotnet.defaultSolution": "aula010sqlvsnosql/PedidosApi.sln",
   "files.exclude": {
     "**/bin": true,
     "**/obj": true

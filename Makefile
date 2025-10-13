@@ -1,7 +1,7 @@
 .PHONY: format
 
 # Define as pastas de aula que contêm projetos .NET
-AULA_DIRS := aula010introducao
+AULA_DIRS := aula010sqlvsnosql
 
 deps:
 	dotnet tool install -g dotnet-format

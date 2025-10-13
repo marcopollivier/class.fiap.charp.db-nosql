@@ -97,7 +97,7 @@ Consolidação de conceitos, comparação de tecnologias e projeto integrado.
 ## Como usar
 
 1. Clone o repositório
-2. Navegue até a pasta da aula desejada (ex: `aula010introducao`)
+2. Navegue até a pasta da aula desejada (ex: `aula010sqlvsnosql`)
 3. Execute `dotnet restore` para restaurar as dependências
 4. Siga as instruções específicas de cada módulo
 
@@ -111,7 +111,7 @@ Consolidação de conceitos, comparação de tecnologias e projeto integrado.
 
 O projeto usa numeração 010, 020, 030... para permitir subprojetos:
 
-- `aula010introducao/` - Projeto principal
+- `aula010sqlvsnosql/` - Projeto principal
 - `aula011introducao-demo/` - Demo adicional (se necessário)
 - `aula012introducao-cap/` - Exemplo CAP theorem (se necessário)
 
