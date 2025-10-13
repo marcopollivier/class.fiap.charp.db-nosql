@@ -369,3 +369,7 @@ FodyWeavers.xsd
 *.sqlite3
 appsettings.local.json
 connection-strings.json
+
+## mongodb 
+aula020mongodbestruturabasica/data/*
+!aula020mongodbestruturabasica/data/db/.gitkeep

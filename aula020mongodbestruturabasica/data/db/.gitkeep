@@ -1,0 +1,2 @@
+# Este arquivo mantém a pasta data/db no controle de versão
+# Os arquivos do MongoDB são ignorados pelo .gitignore
