@@ -4,7 +4,7 @@ Este repositório contém uma série de projetos práticos para o curso de NoSQL
 
 ## Estrutura do Curso
 
-### Aula 010 – Introdução ao NoSQL
+### Aula 1 – Introdução ao NoSQL
 
 Fundamentos do NoSQL, modelos de dados, trade-offs em relação a bancos relacionais e integração com .NET.
 
@@ -16,7 +16,7 @@ Fundamentos do NoSQL, modelos de dados, trade-offs em relação a bancos relacio
 - Integração com .NET (MongoDB, Redis, DynamoDB)
 - Demo comparativo SQL Server vs MongoDB
 
-### Aula 020 – MongoDB Estrutura Básica
+### Aula 2 – MongoDB Estrutura Básica
 
 Setup fundamental do MongoDB com Docker e automação para desenvolvimento.
 
@@ -32,7 +32,7 @@ Setup fundamental do MongoDB com Docker e automação para desenvolvimento.
 
 - `aula020mongodbestruturabasica/` - Setup base com automação
 
-### Aula 022 – MongoDB Aplicado
+### Aula 2 – MongoDB Aplicado
 
 Exploração do MongoDB com operações básicas e integração com aplicações .NET.
 
@@ -43,7 +43,7 @@ Exploração do MongoDB com operações básicas e integração com aplicações
 - Integração .NET com POCOs
 - Exemplo prático: CRUD de produtos
 
-### Aula 030 – MongoDB Avançado
+### Aula 3 – MongoDB Avançado
 
 Modelagem avançada, processamento de dados e recursos enterprise do MongoDB.
 
@@ -55,7 +55,7 @@ Modelagem avançada, processamento de dados e recursos enterprise do MongoDB.
 - Change Streams
 - Sharding e Replica Sets
 
-### Aula 040 – Redis Fundamentos e Persistência/HA
+### Aula 4 – Redis Fundamentos e Persistência/HA
 
 Redis como banco em memória, persistência, alta disponibilidade e padrões avançados.
 
@@ -67,7 +67,7 @@ Redis como banco em memória, persistência, alta disponibilidade e padrões ava
 - Persistência (RDB vs AOF)
 - Padrões: Redlock e Leaderboards
 
-### Aula 050 – DynamoDB Fundamentos e Modelagem
+### Aula 5 – DynamoDB Fundamentos e Modelagem
 
 Estrutura do DynamoDB, índices e boas práticas de modelagem.
 
@@ -79,7 +79,7 @@ Estrutura do DynamoDB, índices e boas práticas de modelagem.
 - Single table design vs múltiplas tabelas
 - Hot spots e particionamento
 
-### Aula 060 – DynamoDB Avançado
+### Aula 6 – DynamoDB Avançado
 
 Recursos avançados, consistência, streams e padrões arquiteturais.
 
@@ -91,7 +91,7 @@ Recursos avançados, consistência, streams e padrões arquiteturais.
 - DynamoDB Streams
 - Adaptive Capacity
 
-### Aula 070 – Comparação, Boas Práticas e Projeto Final
+### Aula 7 – Comparação, Boas Práticas e Projeto Final
 
 Consolidação de conceitos, comparação de tecnologias e projeto integrado.
 
@@ -113,7 +113,7 @@ Consolidação de conceitos, comparação de tecnologias e projeto integrado.
 ## Como usar
 
 1. Clone o repositório
-2. Navegue até a pasta da aula desejada
+2. Navegue até a pasta da aula desejada (ex: `aula01introducao`, `aula02xmongodb`)
 3. Para projetos .NET: Execute `dotnet restore` e siga instruções específicas
 4. Para projetos com containers: Use os comandos `make` disponíveis
 
@@ -135,11 +135,11 @@ make down  # Para containers e limpa dados
 
 ## Estrutura de Numeração
 
-O projeto usa numeração 010, 020, 030... para permitir subprojetos:
+O projeto usa numeração 01x, 02x, 03x... para permitir subprojetos:
 
-- `aula010sqlvsnosql/` - Projeto principal
-- `aula011introducao-demo/` - Demo adicional (se necessário)
-- `aula012introducao-cap/` - Exemplo CAP theorem (se necessário)
+- `aula01introducao/` - Projeto principal da aula 1
+- `aula020mongodbestruturabasica/` - Setup básico MongoDB da aula 2
+- `aula022mongoaplicado/` - MongoDB aplicado da aula 2
 
 ## Comandos Úteis
 
