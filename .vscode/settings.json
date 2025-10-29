@@ -21,10 +21,9 @@
   "terminal.integrated.defaultProfile.osx": "zsh",
   "json.schemas": [
     {
-      "fileMatch": [
-        "**/appsettings*.json"
-      ],
+      "fileMatch": ["**/appsettings*.json"],
       "url": "https://json.schemastore.org/appsettings.json"
     }
-  ]
+  ],
+  "kiroAgent.configureMCP": "Disabled"
 }
