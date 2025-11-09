@@ -12,7 +12,7 @@ No mundo real, escolher entre SQL e NoSQL não é sobre "melhor ou pior", mas so
 
 ### 🚀 Aula 1: Descobrindo o NoSQL
 
-**Pasta: `aula010introducao/`**
+**Pasta: `aula010introducao/`** → [📖 README](./aula010introducao/README.md)
 
 "Afinal, por que não usar SQL para tudo?" - Aqui você vai ver na prática as diferenças fundamentais através de um sistema de pedidos implementado em SQL Server e MongoDB lado a lado.
 
@@ -23,9 +23,12 @@ No mundo real, escolher entre SQL e NoSQL não é sobre "melhor ou pior", mas so
 - CAP Theorem aplicado no dia a dia
 - Comparação prática: mesmo sistema, bancos diferentes
 
+**Sub-aula**: `aula011relacionalcomparacao/` → [📖 README](./aula011relacionalcomparacao/README.md)  
+*PostgreSQL vs SQL Server: preparando o contraste com NoSQL*
+
 ### 🍃 Aula 2: MongoDB - Primeiros Passos
 
-**Pasta: `aula020mongodbestruturabasica/`**
+**Pasta: `aula020mongodbestruturabasica/`** → [📖 README](./aula020mongodbestruturabasica/README.md)
 
 "Como funciona um banco de documentos?" - Setup completo do MongoDB com dados pré-carregados e automação via Makefile. Você vai entender a estrutura básica sem complicação.
 
@@ -36,9 +39,12 @@ No mundo real, escolher entre SQL e NoSQL não é sobre "melhor ou pior", mas so
 - Automação de ambiente de desenvolvimento
 - Dados persistentes e versionamento
 
+**Sub-aula**: `aula021mongoaplicado/` → [📖 README](./aula021mongoaplicado/README.md)  
+*MongoDB integrado com aplicações .NET*
+
 ### ⚡ Aula 3: MongoDB Avançado
 
-**Pasta: `aula030mongoavancado/`** *(em desenvolvimento)*
+**Pasta: `aula030mongoavancado/`** → [📖 README](./aula030mongoavancado/README.md) *(em desenvolvimento)*
 
 **Próximos tópicos:**
 
@@ -50,10 +56,17 @@ No mundo real, escolher entre SQL e NoSQL não é sobre "melhor ou pior", mas so
 
 ### 🚀 Aulas Futuras
 
-- **Aula 4**: Redis - Cache inteligente e estruturas de dados
-- **Aula 5**: DynamoDB - NoSQL serverless da AWS
-- **Aula 6**: DynamoDB Avançado - Padrões e performance
-- **Aula 7**: Comparação e Projeto Final - Juntando tudo
+- **Aula 4**: `aula040redis/` → [📖 README](./aula040redis/README.md)  
+  *Redis - Cache inteligente e estruturas de dados*
+
+- **Aula 5**: `aula050dynamodbfundamentos/` → [📖 README](./aula050dynamodbfundamentos/README.md)  
+  *DynamoDB - NoSQL serverless da AWS*
+
+- **Aula 6**: `aula060dynamodbavancado/` → [📖 README](./aula060dynamodbavancado/README.md)  
+  *DynamoDB Avançado - Padrões e performance*
+
+- **Aula 7**: `aula070comparacao/` → [📖 README](./aula070comparacao/README.md)  
+  *Comparação e Projeto Final - Juntando tudo*
 
 ## 🛠️ Como Começar
 
