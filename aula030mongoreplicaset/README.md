@@ -1,18 +1,10 @@
 # Aula 3.0: MongoDB - Replica Sets# Aula 030 - MongoDB Replica Set# Aula 030 - MongoDB Avançado: Replica Sets e Persistência Atômica
 
-
-
 > **Objetivo**: Compreender conceitos avançados do MongoDB através de replica sets, transações e alta disponibilidade em um setup automatizado prático.## 📋 Objetivo## 📋 Objetivo
 
-
-
-## 🎯 Por que Este Setup?Demonstrar MongoDB Replica Set com 3 instâncias:Demonstrar conceitos avançados do MongoDB através de:
-
-
+## 🎯 Por que Este Setup?Demonstrar MongoDB Replica Set com 3 instâncias:Demonstrar conceitos avançados do MongoDB através de
 
 "O que é um replica set?" e "Como MongoDB garante alta disponibilidade?"- **Primary**: localhost:27017
-
-
 
 Este laboratório demonstra conceitos fundamentais de produção:- **Secondary 1**: localhost:27018- **Replica Sets**: Configuração de alta disponibilidade com 3 instâncias MongoDB
 
@@ -24,15 +16,9 @@ Este laboratório demonstra conceitos fundamentais de produção:- **Secondary 1
 
 - **Alta Disponibilidade**: Sistema funciona mesmo com falhas## 🚀 Como Testar do Zero## 🏗️ Arquitetura
 
-
-
 ## 📊 Conceitos que Você Vai Aprender```bash### MongoDB Replica Set
 
-
-
 ### Replica Set vs Instância Única# Restart completo (limpa e recria tudo)
-
-
 
 ```bashmake restart- **Primary**: localhost:27017 (mongo-primary)
 
@@ -60,11 +46,7 @@ Secondary2 → ✅ Backup automático
 
 ``````
 
-
-
 ### Transações: Individual vs Atômica## 🔗 MongoDB Compassaula030mongoavancado/
-
-
 
 ```csharp├── docker-compose.yml          # 3 instâncias MongoDB em replica set
 
@@ -136,8 +118,6 @@ make datadocker compose up -d
 
 ## 🔗 Conectar no MongoDB Compasssleep 30
 
-
-
 **URI de Conexão:**# 4. Verificar se funcionou
 
 ```docker exec mongo-primary mongosh --eval 'rs.status()'
@@ -179,8 +159,6 @@ dotnet runmake data
 - Persistência com transação (só funciona em replica set)
 
 - Diferenças entre os dois approaches## 🚀 Como Executar (Primeira Vez)
-
-
 
 ### 2. Simular Falha do Primary### 1. Subir o Ambiente
 
@@ -284,19 +262,13 @@ make data       # Ver dados inseridoscd ExemploSimples
 
 ## 🎯 Próximos Passosdocker exec mongo-primary mongosh exemploSimples --eval 'db.clientes.find().pretty()'
 
-
-
 - [Aula 4.0: Redis Fundamentals](../aula040redis/)# Verificar status do replica set
 
 - [Aula 5.0: DynamoDB Basics](../aula050dynamodbfundamentos/)docker exec mongo-primary mongosh --eval 'rs.status()'
 
 - [Comparação NoSQL](../aula070comparacao/)```
 
-
-
 ## 💡 Insights Importantes## 📚 Conceitos Demonstrados
-
-
 
 1. **Operações únicas sempre são atômicas** no MongoDB### 1. Persistência Tradicional
 

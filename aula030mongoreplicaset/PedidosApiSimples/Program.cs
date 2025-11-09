@@ -7,8 +7,8 @@ Console.WriteLine();
 
 try
 {
-    // Conexão simples primeiro
-    var client = new MongoClient("mongodb://localhost:27017");
+    // Conexão para replica set usando localhost
+    var client = new MongoClient("mongodb://localhost:27017/?directConnection=true");
     var database = client.GetDatabase("pedidos");
     var collection = database.GetCollection<Cliente>("clientes");
 
