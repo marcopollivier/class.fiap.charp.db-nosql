@@ -373,3 +373,5 @@ connection-strings.json
 ## mongodb 
 aula020mongodbestruturabasica/data/*
 !aula020mongodbestruturabasica/data/db/.gitkeep
+
+aula030mongoavancado/doc/*

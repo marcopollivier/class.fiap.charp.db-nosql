@@ -25,6 +25,7 @@ This is an educational repository for a graduate-level NoSQL course at FIAP usin
 ## Development Guidelines
 
 ### Educational Focus
+
 - **Clarity over complexity**: Prioritize understandable code over optimization
 - **Progressive learning**: Each module builds upon previous concepts
 - **Practical examples**: Use realistic but simple scenarios (e.g., orders, customers)
@@ -32,6 +33,7 @@ This is an educational repository for a graduate-level NoSQL course at FIAP usin
 - **Hands-on learning**: Provide ready-to-run examples with Docker automation
 
 ### Technical Standards
+
 - **.NET 9**: Use latest stable features and patterns
 - **Clean Architecture**: Separate domain, application, and infrastructure concerns
 - **Docker-first**: All databases run in containers with automation (Makefile)
@@ -39,12 +41,14 @@ This is an educational repository for a graduate-level NoSQL course at FIAP usin
 - **Conventional commits**: Use clear, descriptive commit messages
 
 ### Code Organization
+
 - **Independent modules**: Each aula can run standalone
 - **Consistent structure**: Similar folder organization across modules
 - **README-driven**: Each module has clear documentation and usage instructions
 - **Automation**: Use Makefile for common operations (up, down, clean)
 
 ### NoSQL-Specific Considerations
+
 - **Database comparison**: Show equivalent operations across different databases
 - **Modeling patterns**: Demonstrate embedded vs referenced documents, partitioning strategies
 - **Performance awareness**: Explain trade-offs between consistency, availability, and partition tolerance
@@ -55,7 +59,9 @@ This is an educational repository for a graduate-level NoSQL course at FIAP usin
 When helping with this project:
 
 ### Educational Tags
+
 Use these tags to structure educational responses:
+
 - `<EDUCATIONAL-CONTEXT></EDUCATIONAL-CONTEXT>`: Explain the learning objective
 - `<COMPARISON></COMPARISON>`: Compare with SQL or other NoSQL approaches
 - `<CONCEPT-EXPLANATION></CONCEPT-EXPLANATION>`: Break down complex NoSQL concepts
@@ -63,6 +69,7 @@ Use these tags to structure educational responses:
 - `<TRADE-OFFS></TRADE-OFFS>`: Discuss advantages and disadvantages
 
 ### Standard Tags
+
 - `<CONTEXT></CONTEXT>`: Project or feature context
 - `<CODE-REVIEW></CODE-REVIEW>`: Review and explain existing code
 - `<PLANNING></PLANNING>`: Outline implementation plan
@@ -70,6 +77,7 @@ Use these tags to structure educational responses:
 - `<WARNING></WARNING>`: Flag bad practices or incorrect suggestions
 
 ### Best Practices
+
 - **Educational first**: Explain the "why" before the "how"
 - **Incremental complexity**: Start simple, add complexity gradually
 - **Multiple examples**: Show the same concept with different NoSQL databases
@@ -79,24 +87,28 @@ Use these tags to structure educational responses:
 ### Database-Specific Guidance
 
 #### MongoDB
+
 - Use MongoDB.Driver for .NET (official driver)
 - Show document modeling vs relational normalization
 - Demonstrate aggregation framework for complex queries
 - Explain indexing strategies for performance
 
 #### Redis
+
 - Use StackExchange.Redis for .NET integration
 - Show different data types (strings, hashes, lists, sets, sorted sets)
 - Demonstrate caching patterns and pub/sub
 - Explain persistence options (RDB vs AOF)
 
 #### DynamoDB
+
 - Use AWS SDK for .NET with local DynamoDB
 - Show single-table design vs multi-table approaches
 - Demonstrate partition key and sort key strategies
 - Explain GSI/LSI usage patterns
 
 ### Code Quality for Education
+
 - **Readable variable names**: Use descriptive names that explain purpose
 - **Extensive comments**: Explain not just what, but why
 - **Error handling**: Show proper exception handling patterns
@@ -104,6 +116,7 @@ Use these tags to structure educational responses:
 - **Unit tests**: Provide examples for testing NoSQL operations
 
 ### Common Responses
+
 - Always explain trade-offs between different NoSQL approaches
 - Provide equivalent SQL examples when introducing NoSQL concepts
 - Include performance considerations and scaling implications
