@@ -1,173 +1,116 @@
-# FIAP - Pós-Graduação .NET - NoSQL Database
+# NoSQL na Prática com .NET
 
-Este repositório contém uma série de projetos práticos para o curso de NoSQL utilizando .NET SDK 9 e C#.
+> Material didático para pós-graduação FIAP - Banco de Dados NoSQL com .NET 9
 
-## Estrutura do Curso
+Este repositório é uma jornada prática pelo mundo NoSQL, onde cada pasta representa uma aula com exemplos reais que você pode executar e modificar.
 
-### Aula 1 – Introdução ao NoSQL
+## 🎯 Por que este curso?
 
-Fundamentos do NoSQL, modelos de dados, trade-offs em relação a bancos relacionais e integração com .NET.
+No mundo real, escolher entre SQL e NoSQL não é sobre "melhor ou pior", mas sobre **contexto**. Aqui você vai entender quando, como e por que usar cada tecnologia através de exemplos práticos em .NET.
 
-**Tópicos:**
+## 📚 Jornada de Aprendizado
 
-- Categorias (Documento, chave-valor, coluna larga, grafo)
-- Comparação entre SQL e NoSQL
-- CAP theorem
-- Integração com .NET (MongoDB, Redis, DynamoDB)
-- Demo comparativo SQL Server vs MongoDB
+### 🚀 Aula 1: Descobrindo o NoSQL
 
-### Aula 2 – MongoDB Estrutura Básica
+**Pasta: `aula010introducao/`**
 
-Setup fundamental do MongoDB com Docker e automação para desenvolvimento.
+"Afinal, por que não usar SQL para tudo?" - Aqui você vai ver na prática as diferenças fundamentais através de um sistema de pedidos implementado em SQL Server e MongoDB lado a lado.
 
-**Tópicos:**
+**O que você vai aprender:**
 
-- Setup Docker automatizado com Makefile
-- Documentos, coleções e BSON
-- Dados pré-carregados (collections clientes e pedidos)
-- Persistência local de dados
-- Controle de versão inteligente
+- Quando NoSQL faz sentido (e quando não faz)
+- As 4 famílias NoSQL com exemplos reais
+- CAP Theorem aplicado no dia a dia
+- Comparação prática: mesmo sistema, bancos diferentes
 
-**Projetos:**
+### 🍃 Aula 2: MongoDB - Primeiros Passos
 
-- `aula020mongodbestruturabasica/` - Setup base com automação
+**Pasta: `aula020mongodbestruturabasica/`**
 
-### Aula 2 – MongoDB Aplicado
+"Como funciona um banco de documentos?" - Setup completo do MongoDB com dados pré-carregados e automação via Makefile. Você vai entender a estrutura básica sem complicação.
 
-Exploração do MongoDB com operações básicas e integração com aplicações .NET.
+**O que você vai aprender:**
 
-**Tópicos:**
+- Setup profissional com Docker
+- Conceitos: documentos, coleções, BSON
+- Automação de ambiente de desenvolvimento
+- Dados persistentes e versionamento
 
-- CRUD operations
-- Índices básicos
-- Integração .NET com POCOs
-- Exemplo prático: CRUD de produtos
+### ⚡ Aula 3: MongoDB Avançado
 
-### Aula 3 – MongoDB Avançado
+**Pasta: `aula030mongoavancado/`** *(em desenvolvimento)*
 
-Modelagem avançada, processamento de dados e recursos enterprise do MongoDB.
+**Próximos tópicos:**
 
-**Tópicos:**
-
-- Modelagem (embedded vs referenced)
-- Aggregation Framework
-- Transações no MongoDB
-- Change Streams
+- Modelagem avançada (embedded vs referenced)
+- Aggregation Framework para análises
+- Transações e consistência
+- Change Streams (eventos em tempo real)
 - Sharding e Replica Sets
 
-### Aula 4 – Redis Fundamentos e Persistência/HA
+### 🚀 Aulas Futuras
 
-Redis como banco em memória, persistência, alta disponibilidade e padrões avançados.
+- **Aula 4**: Redis - Cache inteligente e estruturas de dados
+- **Aula 5**: DynamoDB - NoSQL serverless da AWS
+- **Aula 6**: DynamoDB Avançado - Padrões e performance
+- **Aula 7**: Comparação e Projeto Final - Juntando tudo
 
-**Tópicos:**
+## 🛠️ Como Começar
 
-- Tipos de dados (strings, hashes, listas, sets, sorted sets)
-- Redis como cache distribuído
-- Integração .NET
-- Persistência (RDB vs AOF)
-- Padrões: Redlock e Leaderboards
+### Pré-requisitos
 
-### Aula 5 – DynamoDB Fundamentos e Modelagem
-
-Estrutura do DynamoDB, índices e boas práticas de modelagem.
-
-**Tópicos:**
-
-- Chave-partição e sort key
-- CRUD com .NET SDK
-- Índices (GSI e LSI)
-- Single table design vs múltiplas tabelas
-- Hot spots e particionamento
-
-### Aula 6 – DynamoDB Avançado
-
-Recursos avançados, consistência, streams e padrões arquiteturais.
-
-**Tópicos:**
-
-- Consistência eventual vs forte
-- Transações em DynamoDB
-- TTL (Time To Live)
-- DynamoDB Streams
-- Adaptive Capacity
-
-### Aula 7 – Comparação, Boas Práticas e Projeto Final
-
-Consolidação de conceitos, comparação de tecnologias e projeto integrado.
-
-**Tópicos:**
-
-- Comparação MongoDB x Redis x DynamoDB
-- Trade-offs de custo e performance
-- Estratégias híbridas em .NET
-- Padrões: CQRS + Event Sourcing
-
-## Pré-requisitos
-
-- .NET SDK 9.0 (para projetos com código .NET)
-- Docker ou Podman (se usar Podman, ajustar comandos make)
-- Terminal com suporte ao Makefile
-- Visual Studio 2022 ou VS Code
+- .NET SDK 9.0
+- Docker (ou Podman)
+- VS Code ou Visual Studio 2022
 - Git
 
-## Como usar
-
-1. Clone o repositório
-2. Navegue até a pasta da aula desejada (ex: `aula01introducao`, `aula02xmongodb`)
-3. Para projetos .NET: Execute `dotnet restore` e siga instruções específicas
-4. Para projetos com containers: Use os comandos `make` disponíveis
-
-### Projetos com Automação (Makefile)
-
-Alguns projetos incluem Makefile para automação:
+### Executando uma Aula
 
 ```bash
-cd aula020mongodbestruturabasica/
-make up    # Inicia containers com dados pré-carregados
-make down  # Para containers e limpa dados
-```
+# 1. Clone o repositório
+git clone <repository-url>
 
-## Tecnologias Abordadas
+# 2. Navegue para a aula desejada
+cd aula010introducao/
 
-- **Document Store**: MongoDB
-- **Key-Value/Cache**: Redis
-- **Key-Value/Serverless**: DynamoDB
+# 3. Se houver Makefile, use-o (mais simples)
+make up
 
-## Estrutura de Numeração
+# 4. Ou use Docker Compose diretamente
+docker-compose up -d
 
-O projeto usa numeração 01x, 02x, 03x... para permitir subprojetos:
-
-- `aula01introducao/` - Projeto principal da aula 1
-- `aula020mongodbestruturabasica/` - Setup básico MongoDB da aula 2
-- `aula022mongoaplicado/` - MongoDB aplicado da aula 2
-
-## Comandos Úteis
-
-### Projetos .NET
-
-```bash
-# Restaurar dependências
+# 5. Para projetos .NET
 dotnet restore
-
-# Executar projeto
 dotnet run
-
-# Executar testes
-dotnet test
 ```
 
-### Projetos com Containers
+### Comandos Úteis
+
+**Com Makefile (projetos automatizados):**
 
 ```bash
-# Com Makefile (projetos automatizados)
-make up         # Inicia containers
-make down       # Para containers e limpa dados
-
-# Com Docker Compose (projetos tradicionais)
-docker compose up -d
-docker compose down
+make up      # Inicia tudo
+make down    # Para e limpa
 ```
 
-## Contato
+**Com Docker Compose:**
 
-Para dúvidas sobre o curso, entre em contato através dos canais oficiais da FIAP.
+```bash
+docker-compose up -d    # Sobe os serviços
+docker-compose down     # Para os serviços
+```
+
+## 🎯 Dicas de Estudo
+
+1. **Execute os exemplos**: Não só leia, rode os códigos
+2. **Compare as abordagens**: Veja as diferenças entre SQL e NoSQL nos mesmos cenários
+3. **Modifique os exemplos**: Quebre e conserte para entender melhor
+4. **Use os logs**: Analise as queries geradas pelos ORMs/drivers
+
+## 📖 Estrutura de Numeração
+
+- `aula01x` = Aula 1 com variações
+- `aula02x` = Aula 2 com variações  
+- `aula03x` = Aula 3 com variações
+
+Cada pasta é independente e pode ser executada isoladamente.

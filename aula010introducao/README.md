@@ -1,47 +1,146 @@
-# Sistema de Pedidos - NoSQL vs SQL
+# Aula 1: SQL vs NoSQL na Prática
 
-Sistema simples para demonstrar as diferenças entre bancos NoSQL (MongoDB) e SQL (SQL Server) usando .NET.
+> **Objetivo**: Entender as diferenças fundamentais entre bancos relacionais e NoSQL através de um exemplo prático: sistema de pedidos implementado nos dois paradigmas.
 
-## Estrutura do Projeto
+## 🤔 A Pergunta Central
 
-- **Entidades**: Cliente, Pedido, Item
-- **Repositories**: MongoRepository e SqlRepository
-- **Controllers**: MongoController (`/api/mongo`) e SqlController (`/api/sql`)
+"Por que não usar SQL Server para tudo?"
 
-## Como Executar
+Nesta aula você vai descobrir quando cada tecnologia brilha através de um comparativo direto.
 
-1. **Subir os bancos de dados:**
+## 💡 O que Você Vai Aprender
+
+### Conceitos Fundamentais
+
+- **As 4 famílias NoSQL**: Documento, Chave-Valor, Coluna, Grafo
+- **CAP Theorem**: Por que você não pode ter tudo
+- **Trade-offs reais**: Performance vs Consistência vs Flexibilidade
+
+### Comparação Prática
+
+- **Mesmo sistema, bancos diferentes**: Sistema de pedidos em SQL Server e MongoDB
+- **Estrutura de dados**: Tabelas normalizadas vs Documentos aninhados
+- **Queries**: SQL vs agregações MongoDB
+- **Performance**: Quando cada um é mais eficiente
+
+## 🏗️ Arquitetura do Projeto
+
+```text
+Sistema de Pedidos
+├── SQL Server (Relacional)
+│   ├── Tabela: Clientes
+│   ├── Tabela: Pedidos  
+│   └── Tabela: Itens
+└── MongoDB (Documento)
+    ├── Collection: clientes
+    └── Collection: pedidos (com itens embedded)
+```
+
+### Por que Esta Comparação?
+
+**SQL Server (Relacional):**
+
+- Dados normalizados em tabelas separadas
+- JOINs para relacionar informações
+- ACID transactions garantidas
+- Schema rígido e tipado
+
+**MongoDB (Documento):**
+
+- Pedidos com itens aninhados (embedded)
+- Consultas diretas sem JOINs
+- Flexibilidade de schema
+- Escalabilidade horizontal nativa
+
+## 🚀 Como Executar
+
+### 1. Subir a Infraestrutura
 
 ```bash
+# Na pasta da aula
 docker-compose up -d
 ```
 
-2. **Executar a API:**
+Isso vai subir:
+
+- **SQL Server**: `localhost:1433`
+- **MongoDB**: `localhost:27017`
+
+### 2. Executar a API
 
 ```bash
 dotnet run --project PedidosApi
 ```
 
-3. **Acessar Swagger:**
+### 3. Testar no Swagger
 
-- <http://localhost:5209/swagger/index.html>
+Acesse: <http://localhost:5209/swagger>
 
-## Endpoints Disponíveis
+## 🧪 Endpoints para Comparação
 
-### MongoDB (NoSQL)
+### SQL Server (Relacional)
 
-- `POST /api/mongo/clientes` - Criar cliente
-- `GET /api/mongo/clientes/{id}` - Consultar cliente
-- `POST /api/mongo/pedidos` - Criar pedido
-- `GET /api/mongo/pedidos/{id}` - Consultar pedido
+```http
+POST /api/sql/clientes     # Criar cliente
+GET  /api/sql/clientes/{id} # Buscar cliente
+POST /api/sql/pedidos      # Criar pedido
+GET  /api/sql/pedidos/{id}  # Buscar pedido (com JOIN)
+```
 
-### SQL Server (SQL)
+### MongoDB (Documento)
 
-- `POST /api/sql/clientes` - Criar cliente
-- `GET /api/sql/clientes/{id}` - Consultar cliente
-- `POST /api/sql/pedidos` - Criar pedido
-- `GET /api/sql/pedidos/{id}` - Consultar pedido
+```http
+POST /api/mongo/clientes     # Criar cliente
+GET  /api/mongo/clientes/{id} # Buscar cliente
+POST /api/mongo/pedidos      # Criar pedido
+GET  /api/mongo/pedidos/{id}  # Buscar pedido (direto)
+```
 
-## Exemplos de Uso
+## 🔍 Experimentos Sugeridos
 
-Consulte o arquivo `exemplos-teste.md` para exemplos práticos de como testar ambas as implementações.
+### 1. Compare a Estrutura de Dados
+
+```sql
+-- SQL: Veja as tabelas relacionadas
+SELECT * FROM Clientes
+SELECT * FROM Pedidos 
+SELECT * FROM Itens
+```
+
+```javascript
+// MongoDB: Veja o documento completo
+db.pedidos.findOne()
+```
+
+### 2. Compare as Queries
+
+- **SQL**: JOIN entre 3 tabelas para buscar um pedido completo
+- **MongoDB**: Busca direta por ID do documento
+
+### 3. Teste Performance
+
+- Crie vários pedidos e meça o tempo de resposta
+- Compare consultas complexas vs agregações
+
+## 📝 Arquivos de Teste
+
+Use os arquivos `.http` para testar:
+
+- `PedidosApiMSSQL.http` - Exemplos para SQL Server
+- `PedidosApiMongo.http` - Exemplos para MongoDB
+
+## 🎯 Principais Insights
+
+Após executar os testes, você vai perceber:
+
+1. **Flexibilidade**: MongoDB permite mudanças de schema mais facilmente
+2. **Consistência**: SQL Server garante integridade referencial
+3. **Performance**: Depende do caso de uso (JOINs vs documentos grandes)
+4. **Complexidade**: SQL requer mais código para relacionamentos
+
+## 💭 Questões para Reflexão
+
+- Quando você escolheria MongoDB? E SQL Server?
+- Como a estrutura dos dados influencia a performance?
+- Qual abordagem é mais fácil de manter?
+- Como seria escalar cada solução?
