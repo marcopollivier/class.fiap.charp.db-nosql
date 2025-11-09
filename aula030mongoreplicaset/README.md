@@ -1,102 +1,83 @@
-# Aula 3.0: MongoDB - Replica Sets# Aula 030 - MongoDB Replica Set# Aula 030 - MongoDB Avançado: Replica Sets e Persistência Atômica
+# Aula 030 - MongoDB Avançado: Replica Sets e Transações
 
-> **Objetivo**: Compreender conceitos avançados do MongoDB através de replica sets, transações e alta disponibilidade em um setup automatizado prático.## 📋 Objetivo## 📋 Objetivo
+> **Objetivo**: Compreender conceitos avançados do MongoDB através de replica sets, transações e alta disponibilidade em um setup automatizado prático.
 
-## 🎯 Por que Este Setup?Demonstrar MongoDB Replica Set com 3 instâncias:Demonstrar conceitos avançados do MongoDB através de
+## 📋 Objetivo
 
-"O que é um replica set?" e "Como MongoDB garante alta disponibilidade?"- **Primary**: localhost:27017
+Demonstrar conceitos avançados do MongoDB através de:
 
-Este laboratório demonstra conceitos fundamentais de produção:- **Secondary 1**: localhost:27018- **Replica Sets**: Configuração de alta disponibilidade com 3 instâncias MongoDB
-
-- **Replica Set**: 1 primary + 2 secondaries
-
-- **Transações**: ACID compliance entre múltiplos documentos- **Secondary 2**: localhost:27019- **Persistência Tradicional vs Atômica**: Comparação entre operações CRUD normais e transações
-
+- **Replica Sets**: Configuração de alta disponibilidade com 3 instâncias MongoDB
+- **Transações**: ACID compliance entre múltiplos documentos  
+- **Persistência Tradicional vs Atômica**: Comparação entre operações CRUD normais e transações
 - **Failover**: Eleição automática de novo primary
+- **Alta Disponibilidade**: Sistema funciona mesmo com falhas
 
-- **Alta Disponibilidade**: Sistema funciona mesmo com falhas## 🚀 Como Testar do Zero## 🏗️ Arquitetura
+## 🏗️ Arquitetura
 
-## 📊 Conceitos que Você Vai Aprender```bash### MongoDB Replica Set
+### MongoDB Replica Set
 
-### Replica Set vs Instância Única# Restart completo (limpa e recria tudo)
+- **Primary**: localhost:27017 (mongo-primary)
+- **Secondary 1**: localhost:27018 (mongo-secondary1)  
+- **Secondary 2**: localhost:27019 (mongo-secondary2)
 
-```bashmake restart- **Primary**: localhost:27017 (mongo-primary)
+### Replica Set vs Instância Única
 
+```bash
 # Instância única: SEM transações
-
-MongoDB (single) → ❌ Transações multi-documento- **Secondary 1**: localhost:27018 (mongo-secondary1)
-
+MongoDB (single) → ❌ Transações multi-documento
                    ❌ Alta disponibilidade  
+                   ❌ Tolerância a falhas
 
-                   ❌ Tolerância a falhas# Verificar se funcionou- **Secondary 2**: localhost:27019 (mongo-secondary2)
-
-
-
-# Replica Set: COM transaçõesmake status
-
+# Replica Set: COM transações
 Primary    → ✅ Lê e escreve
-
-Secondary1 → ✅ Cópia dos dadosmake data### Estrutura do Projeto
-
+Secondary1 → ✅ Cópia dos dados
 Secondary2 → ✅ Backup automático
-
-           → ✅ Transações ACID```
-
+           → ✅ Transações ACID
            → ✅ Failover automático
+```
 
-``````
+### Transações: Individual vs Atômica
 
-### Transações: Individual vs Atômica## 🔗 MongoDB Compassaula030mongoavancado/
-
-```csharp├── docker-compose.yml          # 3 instâncias MongoDB em replica set
-
+```csharp
 // INDIVIDUAL: Cada operação é isolada
-
-await collection.InsertOneAsync(cliente1);  // ✅ Sempre atômica**URI:** `mongodb://localhost:27017/?directConnection=true`├── ExemploSimples/             # Projeto .NET 9 demonstrativo
-
+await collection.InsertOneAsync(cliente1);  // ✅ Sempre atômica
 await collection.InsertOneAsync(cliente2);  // ✅ Sempre atômica
+// Problema: Se falhar no meio, fica inconsistente!
 
-// Problema: Se falhar no meio, fica inconsistente!│   ├── Cliente.cs              # Modelo de dados
-
-
-
-// TRANSAÇÃO: Múltiplas operações atômicas- Database: `exemploSimples`│   ├── Program.cs              # Exemplos de persistência
-
+// TRANSAÇÃO: Múltiplas operações atômicas
 using var session = await client.StartSessionAsync();
-
-session.StartTransaction();- Collection: `clientes`│   └── ExemploSimples.csproj   # Configuração do projeto
-
+session.StartTransaction();
 await collection.InsertOneAsync(session, cliente1);
-
-await collection.InsertOneAsync(session, cliente2);└── README.md                   # Este arquivo
-
+await collection.InsertOneAsync(session, cliente2);
 await session.CommitTransactionAsync(); // ✅ Tudo ou nada!
+```
 
-```## 🔧 Outros Comandos```
+## � Estrutura do Projeto
 
-
+```
+aula030mongoreplicaset/
+├── docker-compose.yml          # 3 instâncias MongoDB em replica set
+├── configure-replica-set.sh    # Setup automatizado
+├── Makefile                   # Comandos úteis
+├── PedidosApiSimples/         # Aplicação .NET demonstrativa
+│   ├── Cliente.cs            # Modelo para MongoDB
+│   ├── Program.cs            # Exemplos práticos
+│   └── PedidosApiSimples.csproj
+└── README.md                 # Este arquivo
+```
 
 ## 🚀 Como Executar
 
-
-
-### Opção 1: Setup Automático (Recomendado)```bash## 🚀 Como Testar do Zero
+### Opção 1: Setup Automático (Recomendado)
 
 ```bash
-
-# Um comando faz tudo: containers + replica set + dadosmake up      # Subir ambiente
-
+# Um comando faz tudo: containers + replica set + dados
 make restart
+```
 
-```make down    # Parar containers### Opção 1: Comandos Manuais
-
-
-
-### Opção 2: Passo a Passomake clean   # Remover tudo
+### Opção 2: Passo a Passo
 
 ```bash
-
-# 1. Subir containersmake status  # Ver replica set```bash
 
 make up
 
@@ -108,177 +89,97 @@ make status```docker compose down -v
 
 
 
-# 3. Ver dados inseridos# 2. Subir ambiente limpo
-
-make datadocker compose up -d
-
-```
-
-# 3. Aguardar 30 segundos para inicialização automática
-
-## 🔗 Conectar no MongoDB Compasssleep 30
-
-**URI de Conexão:**# 4. Verificar se funcionou
-
-```docker exec mongo-primary mongosh --eval 'rs.status()'
-
-mongodb://localhost:27017/?directConnection=true```
-
-```
-
-### Opção 2: Usando Makefile (Recomendado)
-
-**Para explorar:**
-
-- Database: `pedidos````bash
-
-- Collection: `clientes`# Restart completo (limpa tudo e recria)
-
-make restart
-
-## 🧪 Testar Conceitos
-
-# Ver status
-
-### 1. Executar Aplicação .NETmake status
-
-```bash
-
-cd PedidosApiSimples# Ver dados de exemplo
-
-dotnet runmake data
-
-```
-
-# Instruções MongoDB Compass
-
-**O que a aplicação demonstra:**make compass
-
-- Persistência individual (sempre funciona)```
-
-- Persistência com transação (só funciona em replica set)
-
-- Diferenças entre os dois approaches## 🚀 Como Executar (Primeira Vez)
-
-### 2. Simular Falha do Primary### 1. Subir o Ambiente
-
-```bash
-
-# Derrubar o primary```bash
-
-docker stop mongo-primary# Sobe os 3 containers MongoDB
-
+# 1. Subir containers
 docker compose up -d
 
-# Ver eleição do novo primary
+# 2. Aguardar inicialização (30 segundos)
+sleep 30
 
-make status# Verifica se os containers estão rodando
+# 3. Verificar se replica set está funcionando
+make status
 
-docker compose ps
-
-# Primary original volta como secondary```
-
-docker start mongo-primary
-
-```### 2. Configurar Replica Set
-
-
-
-## 📁 Estrutura do Projeto```bash
-
-# Configurar replica set (já configurado automaticamente)
-
-```docker exec mongo-primary mongosh --eval 'rs.status()'
-
-aula030mongoreplicaset/```
-
-├── docker-compose.yml          # 3 instâncias MongoDB
-
-├── configure-replica-set.sh    # Setup automatizado### 3. Conectar no MongoDB Compass
-
-├── Makefile                   # Comandos úteis
-
-├── PedidosApiSimples/         # Aplicação .NET demonstrativa**URI de Conexão (Recomendada):**
-
-│   ├── Cliente.cs            # Modelo para MongoDB
-
-│   ├── Program.cs            # Exemplos práticos```
-
-│   └── PedidosApiSimples.csprojmongodb://localhost:27017/?directConnection=true
-
-└── README.md                 # Este arquivo```
-
+# 4. Ver dados de exemplo
+make data
 ```
-
-**Alternativa para Replica Set (Avançado):**
 
 ## 🔧 Comandos Disponíveis
 
-```
-
-```bashmongodb://localhost:27017,localhost:27018,localhost:27019/?replicaSet=rs0
-
-make restart    # Derrubar tudo + recriar limpo```
-
+```bash
+make restart    # Derrubar tudo + recriar limpo
 make up         # Subir ambiente
-
-make down       # Parar containers  ### 4. Executar Exemplo .NET
-
+make down       # Parar containers  
 make clean      # Limpar volumes
-
-make status     # Status do replica set```bash
-
-make data       # Ver dados inseridoscd ExemploSimples
-
-```dotnet run
-
+make status     # Status do replica set
+make data       # Ver dados inseridos
+make compass    # Instruções MongoDB Compass
 ```
 
-## ⚡ Troubleshooting
+## 🔗 Conectar no MongoDB Compass
 
-## � Verificando os Dados
+**URI de Conexão:**
 
-**Problema: "not primary"**
+```
+mongodb://localhost:27017/?directConnection=true
+```
 
-- **Causa**: Tentou inserir dados antes da eleição terminar### No MongoDB Compass
+**Para explorar:**
 
-- **Solução**: Aguardar ~15 segundos após `make up`
+- Database: `exemploSimples`
+- Collection: `clientes`
+
+## 🧪 Testar Conceitos
+
+### 1. Executar Aplicação .NET
+
+```bash
+cd PedidosApiSimples
+dotnet run
+```
+
+**O que a aplicação demonstra:**
+
+- Persistência individual (sempre funciona)
+- Persistência com transação (só funciona em replica set)
+- Diferenças entre os dois approaches
+
+### 2. Simular Falha do Primary
+
+```bash
+# Derrubar o primary
+docker stop mongo-primary
+
+# Ver eleição do novo primary
+make status
+
+# Primary original volta como secondary
+docker start mongo-primary
+```
+
+### 3. Verificar os Dados
+
+**No MongoDB Compass:**
 
 1. Conecte com: `mongodb://localhost:27017/?directConnection=true`
+2. Navegue até: `exemploSimples` > `clientes`
+3. Visualize os documentos inseridos
 
-**Problema: "no write concern"**2. Navegue até: `exemploSimples` > `clientes`
+**Via Comando:**
 
-- **Causa**: Replica set não está configurado3. Visualize os documentos inseridos
-
-- **Solução**: Executar `./configure-replica-set.sh`
-
-### Via Comando
-
-**Problema: MongoDB Compass não conecta**
-
-- **Solução**: Usar URI com `directConnection=true````bash
-
+```bash
 # Ver documentos na coleção
+docker exec mongo-primary mongosh exemploSimples --eval 'db.clientes.find().pretty()'
 
-## 🎯 Próximos Passosdocker exec mongo-primary mongosh exemploSimples --eval 'db.clientes.find().pretty()'
+# Verificar status do replica set
+docker exec mongo-primary mongosh --eval 'rs.status()'
+```
 
-- [Aula 4.0: Redis Fundamentals](../aula040redis/)# Verificar status do replica set
+## Conceitos Demonstrados
 
-- [Aula 5.0: DynamoDB Basics](../aula050dynamodbfundamentos/)docker exec mongo-primary mongosh --eval 'rs.status()'
+### 1. Persistência Tradicional
 
-- [Comparação NoSQL](../aula070comparacao/)```
-
-## 💡 Insights Importantes## 📚 Conceitos Demonstrados
-
-1. **Operações únicas sempre são atômicas** no MongoDB### 1. Persistência Tradicional
-
-2. **Transações só funcionam** em replica set ou sharded cluster  
-
-3. **Replica sets** são essenciais para produção- Operações CRUD individuais (InsertOneAsync, UpdateOneAsync, etc.)
-
-4. **Failover automático** garante disponibilidade- Sem garantias transacionais entre operações
-
-5. **MongoDB não é só "NoSQL"** - tem ACID quando necessário- Pode resultar em inconsistências em caso de falha
+- Operações CRUD individuais (InsertOneAsync, UpdateOneAsync, etc.)
+- Sem garantias transacionais entre operações
+- Pode resultar em inconsistências em caso de falha
 
 ### 2. Persistência Atômica (Transações)
 
@@ -292,31 +193,38 @@ make data       # Ver dados inseridoscd ExemploSimples
 - **Escalabilidade de Leitura**: Reads podem ser distribuídos
 - **Tolerância a Falhas**: Sistema funciona mesmo com 1 instância down
 
-## � Comandos Úteis
+## ⚡ Troubleshooting
 
-```bash
-# Parar ambiente
-docker compose down
+**Problema: "not primary"**
 
-# Ver logs de um container específico
-docker logs mongo-primary
+- **Causa**: Tentou inserir dados antes da eleição terminar
+- **Solução**: Aguardar ~15 segundos após `make up`
 
-# Conectar diretamente no MongoDB
-docker exec -it mongo-primary mongosh
+**Problema: "no write concern"**
 
-# Limpar volumes (dados)
-docker compose down -v
-```
+- **Causa**: Replica set não está configurado
+- **Solução**: Executar `./configure-replica-set.sh`
 
-## ⚠️ Notas Importantes
+**Problema: MongoDB Compass não conecta**
 
-1. **Conectividade**: Use `directConnection=true` no MongoDB Compass para conexão simples
-2. **Dados**: Persistidos em volumes Docker (sobrevivem a restart dos containers)
-3. **Rede**: Containers se comunicam via rede Docker interna
-4. **Desenvolvimento**: Configuração adequada para ambiente de desenvolvimento/estudo
+- **Solução**: Usar URI com `directConnection=true`
+
+## 💡 Insights Importantes
+
+1. **Operações únicas sempre são atômicas** no MongoDB
+2. **Transações só funcionam** em replica set ou sharded cluster  
+3. **Replica sets** são essenciais para produção
+4. **Failover automático** garante disponibilidade
+5. **MongoDB não é só "NoSQL"** - tem ACID quando necessário
 
 ## 🎯 Próximos Passos
 
 - Experimente derrubar o primary e ver a eleição de novo primary
 - Teste transações que falham no meio e observe o rollback
 - Compare performance de reads entre primary e secondaries
+
+**Próximas Aulas:**
+
+- [Aula 4.0: Redis Fundamentals](../aula040redis/)
+- [Aula 5.0: DynamoDB Basics](../aula050dynamodbfundamentos/)
+- [Comparação NoSQL](../aula070comparacao/)
