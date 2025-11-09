@@ -26,4 +26,4 @@ status:
 
 # Ver dados
 data:
-	@docker exec mongo-primary mongosh exemploSimples --eval 'db.clientes.find().pretty()' 2>/dev/null || echo "❌ Sem dados"
+	@docker exec mongo-primary mongosh pedidos --eval 'db.clientes.find().pretty()' 2>/dev/null || echo "❌ Sem dados"

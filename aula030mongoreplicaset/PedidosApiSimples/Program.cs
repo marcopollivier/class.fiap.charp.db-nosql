@@ -1,5 +1,6 @@
 ﻿using MongoDB.Driver;
-using ExemploSimples;
+
+using PedidosApiSimples;
 
 Console.WriteLine("=== EXEMPLO: Persistência com Replica Set ===");
 Console.WriteLine();
@@ -8,7 +9,7 @@ try
 {
     // Conexão simples primeiro
     var client = new MongoClient("mongodb://localhost:27017");
-    var database = client.GetDatabase("exemploSimples");
+    var database = client.GetDatabase("pedidos");
     var collection = database.GetCollection<Cliente>("clientes");
 
     var cliente1 = new Cliente

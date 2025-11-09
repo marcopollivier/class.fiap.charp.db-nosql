@@ -1,7 +1,7 @@
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace ExemploSimples;
+namespace PedidosApiSimples;
 
 public class Cliente
 {

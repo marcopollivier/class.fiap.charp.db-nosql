@@ -24,7 +24,7 @@ try {
 sleep 5
 
 # Insere dados de exemplo
-docker exec mongo-primary mongosh exemploSimples --eval '
+docker exec mongo-primary mongosh pedidos --eval '
 db.clientes.deleteMany({});
 db.clientes.insertOne({nome: "João Silva", email: "joao@teste.com"});
 db.clientes.insertOne({nome: "Maria Santos", email: "maria@teste.com"});
