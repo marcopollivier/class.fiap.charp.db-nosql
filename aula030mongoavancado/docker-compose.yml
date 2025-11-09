@@ -1,30 +1,35 @@
-version: '3.8'
-
 services:
-  # MongoDB Replica Set
+  # MongoDB Primary
   mongodb-primary:
     image: mongo:7.0
-    container_name: aula03-mongodb-primary
-    restart: unless-stopped
+    container_name: mongo-primary
     ports:
       - "27017:27017"
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: admin
-      MONGO_INITDB_ROOT_PASSWORD: password123
     command: mongod --replSet rs0 --bind_ip_all
     volumes:
       - mongodb_primary_data:/data/db
 
-  mongodb-secondary:
+  # MongoDB Secondary 1
+  mongodb-secondary1:
     image: mongo:7.0
-    container_name: aula03-mongodb-secondary
-    restart: unless-stopped
+    container_name: mongo-secondary1
     ports:
       - "27018:27017"
     command: mongod --replSet rs0 --bind_ip_all
     volumes:
-      - mongodb_secondary_data:/data/db
+      - mongodb_secondary1_data:/data/db
+
+  # MongoDB Secondary 2
+  mongodb-secondary2:
+    image: mongo:7.0
+    container_name: mongo-secondary2
+    ports:
+      - "27019:27017"
+    command: mongod --replSet rs0 --bind_ip_all
+    volumes:
+      - mongodb_secondary2_data:/data/db
 
 volumes:
   mongodb_primary_data:
-  mongodb_secondary_data:
+  mongodb_secondary1_data:
+  mongodb_secondary2_data:
