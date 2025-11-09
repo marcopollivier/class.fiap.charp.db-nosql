@@ -40,6 +40,23 @@ This is an educational repository for a graduate-level NoSQL course at FIAP usin
 - **Minimal dependencies**: Keep external libraries to essential ones only
 - **Conventional commits**: Use clear, descriptive commit messages
 
+### Standard Data Models
+
+**IMPORTANT**: Always use the standardized domain models for consistency across all course examples:
+
+- **Cliente**: Represents customers with Id, Nome, and Email
+- **Item**: Represents products/items with Id, Nome, Preco, and Quantidade
+- **Pedido**: Represents orders with Id, ClienteId, DataPedido, Itens (List<Item>), and calculated Total
+
+When creating new examples for any aula, you MUST use these three core entities as the foundation. This ensures:
+
+- **Learning consistency**: Students see the same domain across different NoSQL technologies
+- **Pattern recognition**: Easy to compare implementations between MongoDB, Redis, DynamoDB, etc.
+- **Progressive complexity**: Can demonstrate different modeling approaches using familiar entities
+- **Real-world relevance**: E-commerce domain is universally understood
+
+Adapt these models as needed for specific NoSQL features (embedded documents, denormalization, etc.) but maintain the core structure and relationships.
+
 ### Code Organization
 
 - **Independent modules**: Each aula can run standalone
@@ -80,6 +97,7 @@ Use these tags to structure educational responses:
 
 - **Educational first**: Explain the "why" before the "how"
 - **Incremental complexity**: Start simple, add complexity gradually
+- **Standard domain models**: Always use Cliente, Item, and Pedido as base entities for examples
 - **Multiple examples**: Show the same concept with different NoSQL databases
 - **Troubleshooting focus**: Anticipate common student issues
 - **Documentation quality**: READMEs should be learning guides, not just instructions
