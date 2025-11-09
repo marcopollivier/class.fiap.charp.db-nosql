@@ -23,12 +23,5 @@ try {
 
 sleep 5
 
-# Insere dados de exemplo
-docker exec mongo-primary mongosh pedidos --eval '
-db.clientes.deleteMany({});
-db.clientes.insertOne({nome: "João Silva", email: "joao@teste.com"});
-db.clientes.insertOne({nome: "Maria Santos", email: "maria@teste.com"});
-print("✅ Dados inseridos!");
-' > /dev/null
-
-echo "🎉 Pronto! Use: mongodb://localhost:27017/?directConnection=true"
+echo "🎉 Replica set pronto! Execute a aplicação .NET para inserir dados:"
+echo "    cd PedidosApiSimples && dotnet run"
