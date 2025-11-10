@@ -14,29 +14,55 @@
 ## 🚀 Como Executar
 
 ```bash
-# 1. Subir a infraestrutura
+# 1. Subir a infraestrutura Redis
 docker-compose up -d
 
-# 2. Restaurar dependências (se houver projeto .NET)
-dotnet restore
+# 2. Navegar para o projeto .NET
+cd /caminho/para/aula040redis
 
-# 3. Executar exemplos
-dotnet run
+# 3. Restaurar dependências
+dotnet restore RedisExamplesApi.csproj
+
+# 4. Executar a aplicação
+dotnet run --project RedisExamplesApi.csproj
+
+# 5. Acessar a API
+# - Swagger UI: http://localhost:5000
+# - Health Check: http://localhost:5000/health
+# - Exemplos: http://localhost:5000/api/redisexamples
+```
+
+### Testando o Redis diretamente
+
+```bash
+# Conectar ao container Redis
+docker exec -it aula04-redis redis-cli -a password123
+
+# Comandos básicos para teste
+SET teste "Hello Redis"
+GET teste
+KEYS *
 ```
 
 ## 📚 Tópicos Abordados
 
-### Em Desenvolvimento
+### Material Didático Disponível
 
-*Este conteúdo está sendo preparado e será adicionado em breve.*
+O conteúdo completo da aula está organizado na pasta `doc/`:
 
-### Próximos Passos
+1. **[Introdução ao Redis](doc/01-introducao-redis.md)** - Conceitos fundamentais e características
+2. **[Tipos de Dados](doc/02-tipos-dados.md)** - Strings, Hashes, Lists, Sets, Sorted Sets
+3. **[Cache Distribuído](doc/03-cache-distribuido.md)** - Padrões de cache e implementação prática
+4. **[Persistência](doc/04-persistencia.md)** - RDB vs AOF, estratégias de backup
+5. **[Casos de Uso Avançados](doc/05-casos-uso-avancados.md)** - Rate limiting, leaderboards, filas
+6. **[Resumo e Melhores Práticas](doc/06-resumo-melhores-praticas.md)** - Produção e monitoramento
 
-- Setup Redis com Docker
-- Tipos de dados e operações
-- Implementação de cache em .NET
-- Padrões de persistência
-- Configuração de alta disponibilidade
+### Exemplos Práticos
+
+- **API .NET completa** com exemplos funcionais de todos os conceitos
+- **Controller demonstrativo** em `RedisExamplesController.cs`
+- **Configuração Docker** pronta para uso
+- **Health checks** e monitoramento
 
 ## 🔗 Links Relacionados
 
