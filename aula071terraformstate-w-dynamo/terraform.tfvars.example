@@ -1,0 +1,11 @@
+# Exemplo de arquivo terraform.tfvars
+# Copie este arquivo para terraform.tfvars e ajuste os valores conforme necessário
+
+# Configurações básicas
+aws_region   = "us-east-1"
+project_name = "fiap-nosql"
+environment  = "dev"
+
+# Configurações do backend (documentação - valores usados na inicialização)
+bucket_name     = "terraform-state-fiap-nosql-SEU-NOME-UNICO"  # ⚠️ ALTERE ESTE VALOR
+dynamodb_table  = "terraform-state-lock"
