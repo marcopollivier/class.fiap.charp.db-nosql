@@ -29,19 +29,47 @@ dotnet restore
 dotnet run
 ```
 
-## 📚 Tópicos Abordados
+## 📚 Documentação Organizada
 
-### Em Desenvolvimento
+Esta aula está estruturada em módulos progressivos para facilitar o aprendizado. Consulte a [documentação completa na pasta doc/](./doc/).
 
-*Este conteúdo está sendo preparado e será adicionado em breve.*
+### 📖 Conteúdo Fundamental
+
+1. **[O que é o DynamoDB](./doc/01-o-que-e-dynamodb.md)**
+   - Conceitos introdutórios e comparações
+   - Casos de uso e características principais
+
+2. **[Características Básicas](./doc/02-caracteristicas-basicas.md)**
+   - Arquitetura interna e particionamento
+   - Modelos de billing e capacidade
+
+3. **[Partition Key e Sort Key](./doc/03-partition-key-sort-key.md)**
+   - Fundamentos de modelagem de chaves
+   - Padrões de consulta e distribuição
+
+4. **[Índices GSI e LSI](./doc/04-indices-gsi-lsi.md)**
+   - Índices secundários para acesso alternativo
+   - Estratégias de projeção e performance
+
+5. **[Estratégias de Modelagem](./doc/05-estrategias-modelagem.md)**
+   - Single Table vs Multiple Tables
+   - Padrões avançados e migração
+
+6. **[Hot Spots e Distribuição](./doc/06-hot-spots-distribuicao.md)**
+   - Prevenção de gargalos de performance
+   - Técnicas de distribuição uniforme
+
+### 🎯 Como Estudar
+
+- **Iniciantes**: Siga a ordem sequencial (módulos 1-6)
+- **Intermediários**: Foque em modelagem (módulos 3-5)  
+- **Avançados**: Concentre-se em otimização (módulo 6)
 
 ### Próximos Passos
 
-- Setup DynamoDB Local
-- Modelagem de dados
-- Implementação CRUD em .NET
-- Criação e uso de índices
-- Padrões de consulta eficientes
+- Setup DynamoDB Local com Docker
+- Implementação prática em .NET
+- Exercícios com dados do e-commerce padrão
 
 ## 🔗 Links Relacionados
 
