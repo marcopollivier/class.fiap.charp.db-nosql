@@ -1,0 +1,17 @@
+{
+  "TableName": "PedidosApp",
+  "Item": {
+    "PK": { "S": "CLIENTE#123" },
+    "SK": { "S": "PROFILE" },
+    "Tipo": { "S": "PROFILE" },
+    "cliente_id": { "N": "123" },
+    "telefone": { "S": "+55 11 99999-0000" },
+    "data_nascimento": { "S": "1988-11-05" },
+    "preferencias": {
+      "L": [
+        { "S": "email" },
+        { "S": "push" }
+      ]
+    }
+  }
+}

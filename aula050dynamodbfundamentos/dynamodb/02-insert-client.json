@@ -1,0 +1,12 @@
+{
+  "TableName": "PedidosApp",
+  "Item": {
+    "PK": { "S": "CLIENTE#123" },
+    "SK": { "S": "CLIENTE#123" },
+    "Tipo": { "S": "CLIENTE" },
+    "cliente_id": { "N": "123" },
+    "nome": { "S": "Marco Ollivier" },
+    "email": { "S": "marco@example.com" },
+    "criado_em": { "S": "2025-01-01T10:00:00Z" }
+  }
+}

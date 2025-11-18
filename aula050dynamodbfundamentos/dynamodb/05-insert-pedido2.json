@@ -1,0 +1,12 @@
+{
+  "TableName": "PedidosApp",
+  "Item": {
+    "PK": { "S": "CLIENTE#123" },
+    "SK": { "S": "PEDIDO#2024-0002" },
+    "Tipo": { "S": "PEDIDO" },
+    "pedido_id": { "S": "2024-0002" },
+    "valor_total": { "N": "120.00" },
+    "data_pedido": { "S": "2024-11-20T09:10:00Z" },
+    "status": { "S": "CANCELADO" }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "TableName": "PedidosApp",
+  "Item": {
+    "PK": { "S": "CLIENTE#123" },
+    "SK": { "S": "PEDIDO#2025-0001#ITEM#1" },
+    "Tipo": { "S": "ITEM" },
+    "pedido_id": { "S": "2025-0001" },
+    "item_id": { "N": "1" },
+    "nome": { "S": "Camiseta preta" },
+    "quantidade": { "N": "2" },
+    "preco_unitario": { "N": "99.90" }
+  }
+}

@@ -1,77 +1,149 @@
-# Aula 5: DynamoDB - Fundamentos e Modelagem
+# Aula 5: DynamoDB Fundamentals com Tabela PedidosApp na AWS
 
-> **Objetivo**: Dominar os conceitos fundamentais do DynamoDB, modelagem de dados para NoSQL chave-valor e boas práticas para AWS.
+## 📚 EDUCATIONAL-CONTEXT
 
-## 🎯 O que Você Vai Aprender
+Este módulo demonstra operações fundamentais do DynamoDB usando a tabela **PedidosApp** existente numa conta AWS real. O projeto utiliza single-table design pattern, uma abordagem avançada de modelagem NoSQL.
 
-- Conceitos: Partition Key e Sort Key
-- Modelagem single-table vs multi-table
-- Índices: GSI (Global Secondary Index) e LSI (Local Secondary Index)
-- CRUD operations com AWS SDK para .NET
-- Padrões de acesso e hot spots
-- Estratégias de particionamento
+## 🏗️ Estrutura da Tabela PedidosApp
+
+### Chaves Primárias
+- **PK (Partition Key)**: `CLIENTE#{cliente_id}` - Agrupa todas as entidades de um cliente
+- **SK (Sort Key)**: Identifica o tipo e instância específica da entidade
+
+### Entidades Suportadas
+
+| Tipo | Padrão SK | Descrição |
+|------|-----------|-----------|
+| `CLIENTE` | `CLIENTE#{cliente_id}` | Dados básicos do cliente |
+| `PROFILE` | `PROFILE` | Perfil detalhado (telefone, preferências) |
+| `PEDIDO` | `PEDIDO#{pedido_id}` | Informações do pedido |
+| `ITEM` | `PEDIDO#{pedido_id}#ITEM#{item_id}` | Itens dos pedidos |
+| `ENDERECO` | `ENDERECO#{tipo}` | Endereços (HOME, WORK, etc.) |
 
 ## 🚀 Como Executar
 
+### Pré-requisitos
+- **.NET 9** instalado
+- **Credenciais AWS** configuradas (AWS CLI, perfis, ou variáveis de ambiente)
+- **Permissões** para acessar a tabela `PedidosApp` no DynamoDB
+
+### Configuração das Credenciais AWS
+
+#### Opção 1: AWS CLI
 ```bash
-# 1. Subir DynamoDB Local
-docker-compose up -d
+aws configure
+```
 
-# 2. Configurar AWS CLI (para DynamoDB local)
-aws configure set aws_access_key_id "fakekey"
-aws configure set aws_secret_access_key "fakesecret"
-aws configure set region "us-east-1"
+#### Opção 2: Variáveis de Ambiente
+```bash
+export AWS_ACCESS_KEY_ID=sua_access_key
+export AWS_SECRET_ACCESS_KEY=sua_secret_key
+export AWS_DEFAULT_REGION=us-east-1
+```
 
-# 3. Restaurar dependências
-dotnet restore
+#### Opção 3: Perfil AWS
+```bash
+export AWS_PROFILE=nome_do_perfil
+```
 
-# 4. Executar exemplos
+### Execução
+```bash
+cd ClientApp.DynamoDemo
 dotnet run
 ```
 
-## 📚 Documentação Organizada
+## 🔍 CONCEPT-EXPLANATION: Single-Table Design
 
-Esta aula está estruturada em módulos progressivos para facilitar o aprendizado. Consulte a [documentação completa na pasta doc/](./doc/).
+### Vantagens
+- **Performance**: Todas as operações relacionadas a um cliente em uma única consulta
+- **Consistência**: Transações ACID dentro da mesma partition key
+- **Custo**: Menos RCUs/WCUs para operações relacionadas
 
-### 📖 Conteúdo Fundamental
+### Trade-offs
+- **Complexidade**: Requer planejamento cuidadoso dos access patterns
+- **Flexibilidade**: Mudanças no modelo podem ser desafiadoras
+- **Consultas**: Alguns tipos de consulta cross-entity são limitados
 
-1. **[O que é o DynamoDB](./doc/01-o-que-e-dynamodb.md)**
-   - Conceitos introdutórios e comparações
-   - Casos de uso e características principais
+## 📊 COMPARISON: SQL vs NoSQL
 
-2. **[Características Básicas](./doc/02-caracteristicas-basicas.md)**
-   - Arquitetura interna e particionamento
-   - Modelos de billing e capacidade
+### Modelo Relacional (SQL)
+```sql
+-- Múltiplas tabelas normalizadas
+SELECT c.nome, p.valor_total, i.nome as item_nome
+FROM clientes c
+JOIN pedidos p ON c.id = p.cliente_id  
+JOIN itens i ON p.id = i.pedido_id
+WHERE c.id = 123;
+```
 
-3. **[Partition Key e Sort Key](./doc/03-partition-key-sort-key.md)**
-   - Fundamentos de modelagem de chaves
-   - Padrões de consulta e distribuição
+### Modelo NoSQL (DynamoDB)
+```csharp
+// Uma única query para todas as entidades do cliente
+var request = new QueryRequest
+{
+    KeyConditionExpression = "PK = :pk",
+    ExpressionAttributeValues = { [":pk"] = new("CLIENTE#123") }
+};
+```
 
-4. **[Índices GSI e LSI](./doc/04-indices-gsi-lsi.md)**
-   - Índices secundários para acesso alternativo
-   - Estratégias de projeção e performance
+## 🛠️ Scripts de Exemplo
 
-5. **[Estratégias de Modelagem](./doc/05-estrategias-modelagem.md)**
-   - Single Table vs Multiple Tables
-   - Padrões avançados e migração
+Os scripts na pasta `dynamodb/` demonstram:
 
-6. **[Hot Spots e Distribuição](./doc/06-hot-spots-distribuicao.md)**
-   - Prevenção de gargalos de performance
-   - Técnicas de distribuição uniforme
+1. **01-create-table.json**: Estrutura da tabela
+2. **02-insert-client.json**: Cliente básico
+3. **03-insert-perfil.json**: Perfil detalhado
+4. **04-05-insert-pedido*.json**: Pedidos com diferentes status
+5. **06-07-insert-endereco*.json**: Endereços residencial e comercial
+6. **08-insert-item-pedido.json**: Item de um pedido
 
-### 🎯 Como Estudar
+## 🎯 PRACTICAL-APPLICATION
 
-- **Iniciantes**: Siga a ordem sequencial (módulos 1-6)
-- **Intermediários**: Foque em modelagem (módulos 3-5)  
-- **Avançados**: Concentre-se em otimização (módulo 6)
+### Casos de Uso Demonstrados
 
-### Próximos Passos
+1. **Inserção de dados**: Cliente, perfil, pedidos, itens e endereços
+2. **Consultas eficientes**: Por partition key (cliente)
+3. **Filtros por tipo**: Usando o atributo `Tipo`
+4. **Atualizações**: Modificação de status de pedidos
+5. **Consultas complexas**: Relacionamento entre entidades
 
-- Setup DynamoDB Local com Docker
-- Implementação prática em .NET
-- Exercícios com dados do e-commerce padrão
+### Access Patterns Suportados
 
-## 🔗 Links Relacionados
+- ✅ Buscar todos os dados de um cliente
+- ✅ Listar pedidos de um cliente
+- ✅ Buscar perfil específico
+- ✅ Listar endereços por tipo
+- ✅ Buscar itens de pedidos específicos
+- ⚠️ Buscar pedidos por valor (requer GSI)
+- ⚠️ Buscar clientes por cidade (requer GSI)
 
-- [Aula 4.0: Redis](../aula040redis/)
-- [Aula 6.0: DynamoDB Avançado](../aula060dynamodbavancado/)
+## 🔒 SECURITY-REVIEW
+
+- **Credenciais**: Nunca committar chaves no código
+- **Permissões**: Usar princípio do menor privilégio
+- **Região**: Definir região explicitamente em produção
+- **Criptografia**: Dados em trânsito e em repouso
+
+## ⚠️ WARNING: Custos AWS
+
+- **Pay-per-request**: Cobrança por operação realizada
+- **Consultas**: Queries são mais econômicas que Scans
+- **Dados**: Volume de dados transferidos afeta o custo
+- **Monitoramento**: Use CloudWatch para acompanhar custos
+
+## 📖 Próximos Passos
+
+1. **Aula 6**: DynamoDB Avançado (GSI, LSI, Streams)
+2. **Índices Globais**: Para access patterns não cobertos
+3. **DynamoDB Streams**: Para auditoria e sincronização
+4. **Backup e Recovery**: Estratégias de proteção de dados
+
+---
+
+## 🏷️ Tags Educacionais
+
+- `#single-table-design` - Padrão de modelagem avançado
+- `#aws-dynamodb` - Serviço gerenciado da AWS  
+- `#nosql-modeling` - Modelagem não-relacional
+- `#partition-key` - Distribuição de dados
+- `#sort-key` - Ordenação e consultas

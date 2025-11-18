@@ -1,0 +1,13 @@
+{
+  "TableName": "PedidosApp",
+  "Item": {
+    "PK": { "S": "CLIENTE#123" },
+    "SK": { "S": "ENDERECO#HOME" },
+    "Tipo": { "S": "ENDERECO" },
+    "logradouro": { "S": "Rua das Laranjeiras" },
+    "numero": { "S": "123" },
+    "cidade": { "S": "São Paulo" },
+    "estado": { "S": "SP" },
+    "cep": { "S": "01020-030" }
+  }
+}
