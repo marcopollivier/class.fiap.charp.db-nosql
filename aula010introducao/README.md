@@ -1,12 +1,12 @@
 # Aula 1: SQL vs NoSQL na Prática
 
-> **Objetivo**: Entender as diferenças fundamentais entre bancos relacionais e NoSQL através de um exemplo prático: sistema de pedidos implementado nos dois paradigmas.
+> **Objetivo**: Entender as diferenças fundamentais entre bancos relacionais e NoSQL através de um exemplo prático: sistema de pedidos implementado nos dois paradigmas simultaneamente.
 
 ## 🤔 A Pergunta Central
 
 "Por que não usar SQL Server para tudo?"
 
-Nesta aula você vai descobrir quando cada tecnologia brilha através de um comparativo direto.
+Nesta aula você vai descobrir quando cada tecnologia brilha através de um comparativo direto usando uma **API única** que persiste nos dois bancos.
 
 ## 💡 O que Você Vai Aprender
 
@@ -18,38 +18,41 @@ Nesta aula você vai descobrir quando cada tecnologia brilha através de um comp
 
 ### Comparação Prática
 
-- **Mesmo sistema, bancos diferentes**: Sistema de pedidos em SQL Server e MongoDB
-- **Estrutura de dados**: Tabelas normalizadas vs Documentos aninhados
-- **Queries**: SQL vs agregações MongoDB
-- **Performance**: Quando cada um é mais eficiente
+- **API unificada**: Um controller que persiste em ambos os bancos
+- **Estrutura de dados**: Tabelas normalizadas vs Documentos aninhados  
+- **IDs diferentes**: Auto-increment vs ObjectId
+- **Modelagem**: Relacional vs Embedded Documents
 
-## 🏗️ Arquitetura do Projeto
+## 🏗️ Arquitetura Simplificada
 
 ```text
-Sistema de Pedidos
+Sistema de Pedidos Unificado
+├── PedidosController (único)
+│   └── PedidosService
+│       ├── SqlRepository → SQL Server
+│       └── MongoRepository → MongoDB
+│
 ├── SQL Server (Relacional)
-│   ├── Tabela: Clientes
-│   ├── Tabela: Pedidos  
-│   └── Tabela: Itens
+│   ├── Tabela: Clientes (Id int, Nome, Email)
+│   ├── Tabela: Pedidos (Id int, ClienteId, DataPedido)
+│   └── Tabela: Itens (Id int, PedidoId, Nome, Preco, Quantidade)
+│
 └── MongoDB (Documento)
-    ├── Collection: clientes
-    └── Collection: pedidos (com itens embedded)
+    ├── Collection: clientes {_id: ObjectId, nome, email}
+    └── Collection: pedidos {_id: ObjectId, clienteId, itens: [...]}
 ```
 
-### Por que Esta Comparação?
+### Por que Esta Arquitetura?
 
-**SQL Server (Relacional):**
+**Simplicidade Educacional:**
+- Um único endpoint cria dados em ambos os bancos
+- Resposta mostra IDs de ambos para comparação
+- Demonstra diferenças na prática sem complexidade
 
-- Dados normalizados em tabelas separadas
-- JOINs para relacionar informações
-- ACID transactions garantidas
-- Schema rígido e tipado
+**Comparação Direta:**
 
-**MongoDB (Documento):**
-
-- Pedidos com itens aninhados (embedded)
 - Consultas diretas sem JOINs
-- Flexibilidade de schema
+- Flexibilidade de schema  
 - Escalabilidade horizontal nativa
 
 ## 🚀 Como Executar
@@ -72,28 +75,35 @@ Isso vai subir:
 dotnet run --project PedidosApi
 ```
 
-### 3. Testar no Swagger
+### 3. Testar com Requisições HTTP
 
-Acesse: <http://localhost:5209/swagger>
+Use o arquivo `PedidosApi.http` ou acesse: <http://localhost:5000/swagger>
 
-## 🧪 Endpoints para Comparação
+## 🧪 Endpoints da API Unificada
 
-### SQL Server (Relacional)
+### Comparação Educacional
 
 ```http
-POST /api/sql/clientes     # Criar cliente
-GET  /api/sql/clientes/{id} # Buscar cliente
-POST /api/sql/pedidos      # Criar pedido
-GET  /api/sql/pedidos/{id}  # Buscar pedido (com JOIN)
+GET /api/pedidos/comparacao  # Explicação das diferenças
 ```
 
-### MongoDB (Documento)
+### Operações Unificadas
 
 ```http
-POST /api/mongo/clientes     # Criar cliente
-GET  /api/mongo/clientes/{id} # Buscar cliente
-POST /api/mongo/pedidos      # Criar pedido
-GET  /api/mongo/pedidos/{id}  # Buscar pedido (direto)
+POST /api/pedidos/clientes              # Cria em ambos os bancos
+GET  /api/pedidos/clientes/{mongo}/{sql} # Busca em ambos
+POST /api/pedidos/pedidos               # Cria em ambos  
+GET  /api/pedidos/pedidos/{mongo}/{sql}  # Busca em ambos
+```
+
+### Exemplo de Resposta (Cliente)
+
+```json
+{
+  "mongoId": "675d0a1b2c3d4e5f60789012",
+  "sqlId": 1,
+  "message": "Cliente criado em ambos os bancos de dados"
+}
 ```
 
 ## 🔍 Experimentos Sugeridos

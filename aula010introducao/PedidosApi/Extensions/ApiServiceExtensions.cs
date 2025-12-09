@@ -1,4 +1,5 @@
 using PedidosApi.Repositories;
+using PedidosApi.Services;
 
 namespace PedidosApi.Extensions;
 
@@ -18,6 +19,9 @@ public static class ApiServiceExtensions
         services.AddScoped<MongoRepository>();
         services.AddScoped<SqlRepository>();
 
+        // Registrar service unificado
+        services.AddScoped<PedidosService>();
+
         // Serviços básicos da API
         services.AddControllers();
         services.AddEndpointsApiExplorer();
@@ -34,9 +38,9 @@ public static class ApiServiceExtensions
     {
         services.AddSwaggerGen(c =>
         {
-            c.SwaggerDoc("v1", new() 
-            { 
-                Title = "Pedidos API", 
+            c.SwaggerDoc("v1", new()
+            {
+                Title = "Pedidos API",
                 Version = "v1",
                 Description = "API para demonstração de NoSQL vs SQL com .NET"
             });

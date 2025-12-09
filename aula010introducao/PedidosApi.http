@@ -1,0 +1,131 @@
+### ========================================
+### API Unificada de Pedidos - Aula 010
+### Demonstração SQL vs NoSQL
+### ========================================
+
+# Configurar as variáveis
+@baseUrl = http://localhost:5000/api/pedidos
+
+### ========================================
+### CLIENTES
+### ========================================
+
+# 1. Criar um cliente (persiste em SQL Server e MongoDB)
+POST {{baseUrl}}/clientes
+Content-Type: application/json
+
+{
+  "nome": "João Silva",
+  "email": "joao.silva@email.com"
+}
+
+### ========================================
+
+# 2. Buscar cliente criado (necessário IDs dos passos anteriores)
+# Substitua os IDs pelos retornados na criação
+GET {{baseUrl}}/clientes/675d0123456789abcdef0123/1
+
+### ========================================
+### PEDIDOS
+### ========================================
+
+# 3. Criar um pedido (necessário IDs de cliente dos passos anteriores)
+POST {{baseUrl}}/pedidos
+Content-Type: application/json
+
+{
+  "clienteId": "675d0123456789abcdef0123",
+  "sqlClienteId": 1,
+  "itens": [
+    {
+      "nome": "Notebook Dell",
+      "preco": 2500.00,
+      "quantidade": 1
+    },
+    {
+      "nome": "Mouse Wireless",
+      "preco": 89.90,
+      "quantidade": 2
+    }
+  ]
+}
+
+### ========================================
+
+# 4. Buscar pedido criado (necessário IDs dos passos anteriores)
+GET {{baseUrl}}/pedidos/675d0123456789abcdef0456/1
+
+### ========================================
+### COMPARAÇÕES E DOCUMENTAÇÃO
+### ========================================
+
+# 5. Obter explicação das diferenças entre SQL e NoSQL
+GET {{baseUrl}}/comparacao
+
+### ========================================
+### EXEMPLOS COM DADOS FICTÍCIOS
+### Comentários explicativos sobre as diferenças
+### ========================================
+
+# EXEMPLO: Criar cliente com dados educacionais
+POST {{baseUrl}}/clientes
+Content-Type: application/json
+
+{
+  "nome": "Maria Eduarda Santos",
+  "email": "maria.santos@fiap.edu.br"
+}
+
+# O que acontece internamente:
+# 1. SQL Server: INSERT INTO Clientes (Nome, Email) VALUES ('Maria...', 'maria...')
+#    - ID auto-incremento (int): 1, 2, 3...
+#    - Schema rígido: apenas campos definidos
+#
+# 2. MongoDB: db.clientes.insertOne({nome: 'Maria...', email: 'maria...'})
+#    - ID ObjectId: 24 caracteres hexadecimais
+#    - Schema flexível: poderia adicionar campos dinamicamente
+
+### ========================================
+
+# EXEMPLO: Criar pedido demonstrando modelagem
+POST {{baseUrl}}/pedidos
+Content-Type: application/json
+
+{
+  "clienteId": "675d0a1b2c3d4e5f60789012",
+  "sqlClienteId": 2,
+  "itens": [
+    {
+      "nome": "Livro NoSQL Essentials",
+      "preco": 79.90,
+      "quantidade": 1
+    },
+    {
+      "nome": "Curso MongoDB",
+      "preco": 199.90,
+      "quantidade": 1
+    }
+  ]
+}
+
+# Diferenças na persistência:
+#
+# SQL Server (Relacional):
+# - Tabela Pedidos: Id, ClienteId, DataPedido
+# - Tabela ItensPedido: Id, PedidoId, Nome, Preco, Quantidade
+# - Necessário JOIN para buscar pedido completo
+#
+# MongoDB (Documento):
+# - Documento único contendo tudo:
+#   {
+#     _id: ObjectId,
+#     clienteId: "...",
+#     dataPedido: ISODate,
+#     itens: [
+#       { nome: "...", preco: 79.90, quantidade: 1 },
+#       { nome: "...", preco: 199.90, quantidade: 1 }
+#     ]
+#   }
+# - Uma única consulta retorna dados completos
+
+### ========================================
