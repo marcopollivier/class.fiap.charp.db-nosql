@@ -22,29 +22,30 @@ public class PedidosService
         {
             _logger.LogInformation("Iniciando criação de cliente: {Nome}", clienteDto.Nome);
 
-            // Criar no MongoDB
+            var id = Guid.NewGuid().ToString();
+
             var clienteMongo = new Cliente
             {
+                Id = id,
                 Nome = clienteDto.Nome,
                 Email = clienteDto.Email
             };
-            var mongoId = await _mongoRepository.CriarClienteAsync(clienteMongo);
+            await _mongoRepository.CriarClienteAsync(clienteMongo);
 
-            // Criar no SQL Server
             var clienteSql = new Models.Sql.ClienteSql
             {
+                Id = id,
                 Nome = clienteDto.Nome,
                 Email = clienteDto.Email
             };
-            var sqlId = await _sqlRepository.CriarClienteAsync(clienteSql);
+            await _sqlRepository.CriarClienteAsync(clienteSql);
 
-            _logger.LogInformation("Cliente criado - MongoDB ID: {MongoId}, SQL Server ID: {SqlId}", mongoId, sqlId);
+            _logger.LogInformation("Cliente criado com ID: {Id}", id);
 
             return new
             {
-                MongoId = mongoId,
-                SqlId = sqlId,
-                Message = "Cliente criado em ambos os bancos de dados"
+                Id = id,
+                Message = "Cliente criado em ambos os bancos de dados com o mesmo ID"
             };
         }
         catch (Exception ex)
@@ -54,28 +55,25 @@ public class PedidosService
         }
     }
 
-    public async Task<object> BuscarClienteAsync(string mongoId, int sqlId)
+    public async Task<object> BuscarClienteAsync(string id)
     {
         try
         {
-            _logger.LogInformation("Buscando cliente - MongoDB ID: {MongoId}, SQL ID: {SqlId}", mongoId, sqlId);
+            _logger.LogInformation("Buscando cliente com ID: {Id}", id);
 
-            // Buscar no MongoDB
-            var clienteMongo = await _mongoRepository.ObterClienteAsync(mongoId);
-
-            // Buscar no SQL Server
-            var clienteSql = await _sqlRepository.ObterClienteAsync(sqlId);
+            var clienteMongo = await _mongoRepository.ObterClienteAsync(id);
+            var clienteSql = await _sqlRepository.ObterClienteAsync(id);
 
             return new
             {
+                Id = id,
                 MongoDB = clienteMongo,
                 SqlServer = clienteSql,
                 Comparacao = new
                 {
-                    MongoIdType = "ObjectId (string)",
-                    SqlIdType = "int (auto-increment)",
-                    MongoFlexibilidade = "Schema flexível",
-                    SqlEstrutura = "Schema rígido"
+                    IdUnico = "GUID usado em ambos os bancos",
+                    MongoVantagem = "Flexibilidade de schema",
+                    SqlVantagem = "Estrutura rígida e consistente"
                 }
             };
         }
@@ -92,9 +90,11 @@ public class PedidosService
         {
             _logger.LogInformation("Iniciando criação de pedido para cliente: {ClienteId}", pedidoDto.ClienteId);
 
-            // Criar no MongoDB (documento embarcado)
+            var id = Guid.NewGuid().ToString();
+
             var pedidoMongo = new Pedido
             {
+                Id = id,
                 ClienteId = pedidoDto.ClienteId,
                 DataPedido = DateTime.UtcNow,
                 Itens = pedidoDto.Itens.Select(i => new Item
@@ -104,12 +104,12 @@ public class PedidosService
                     Quantidade = i.Quantidade
                 }).ToList()
             };
-            var mongoId = await _mongoRepository.CriarPedidoAsync(pedidoMongo);
+            await _mongoRepository.CriarPedidoAsync(pedidoMongo);
 
-            // Criar no SQL Server (tabelas relacionadas)
             var pedidoSql = new Models.Sql.PedidoSql
             {
-                ClienteId = pedidoDto.SqlClienteId,
+                Id = id,
+                ClienteId = pedidoDto.ClienteId,
                 DataPedido = DateTime.UtcNow,
                 Itens = pedidoDto.Itens.Select(i => new Models.Sql.ItemSql
                 {
@@ -118,15 +118,14 @@ public class PedidosService
                     Quantidade = i.Quantidade
                 }).ToList()
             };
-            var sqlId = await _sqlRepository.CriarPedidoAsync(pedidoSql);
+            await _sqlRepository.CriarPedidoAsync(pedidoSql);
 
-            _logger.LogInformation("Pedido criado - MongoDB ID: {MongoId}, SQL Server ID: {SqlId}", mongoId, sqlId);
+            _logger.LogInformation("Pedido criado com ID: {Id}", id);
 
             return new
             {
-                MongoId = mongoId,
-                SqlId = sqlId,
-                Message = "Pedido criado em ambos os bancos de dados",
+                Id = id,
+                Message = "Pedido criado em ambos os bancos de dados com o mesmo ID",
                 ModelagemComparacao = new
                 {
                     MongoDB = "Documento embarcado - pedido contém itens",
@@ -141,24 +140,23 @@ public class PedidosService
         }
     }
 
-    public async Task<object> BuscarPedidoAsync(string mongoId, int sqlId)
+    public async Task<object> BuscarPedidoAsync(string id)
     {
         try
         {
-            _logger.LogInformation("Buscando pedido - MongoDB ID: {MongoId}, SQL ID: {SqlId}", mongoId, sqlId);
+            _logger.LogInformation("Buscando pedido com ID: {Id}", id);
 
-            // Buscar no MongoDB
-            var pedidoMongo = await _mongoRepository.ObterPedidoAsync(mongoId);
-
-            // Buscar no SQL Server
-            var pedidoSql = await _sqlRepository.ObterPedidoAsync(sqlId);
+            var pedidoMongo = await _mongoRepository.ObterPedidoAsync(id);
+            var pedidoSql = await _sqlRepository.ObterPedidoAsync(id);
 
             return new
             {
+                Id = id,
                 MongoDB = pedidoMongo,
                 SqlServer = pedidoSql,
                 ModelagemComparacao = new
                 {
+                    IdUnico = "Mesmo GUID em ambos os bancos",
                     MongoConsulta = "Uma única consulta - documento completo",
                     SqlConsulta = "Múltiplas consultas ou JOINs necessários",
                     MongoVantagem = "Menos roundtrips ao banco",

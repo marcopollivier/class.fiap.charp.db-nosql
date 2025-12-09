@@ -14,25 +14,28 @@ public class SqlRepository
         _context = context;
     }
 
-    public async Task<int> CriarClienteAsync(ClienteSql cliente)
+    public async Task<string> CriarClienteAsync(ClienteSql cliente)
     {
+        cliente.Id = Guid.NewGuid().ToString();
         _context.Clientes.Add(cliente);
         await _context.SaveChangesAsync();
         return cliente.Id;
     }
 
-    public async Task<ClienteSql?> ObterClienteAsync(int id)
+    public async Task<ClienteSql?> ObterClienteAsync(string id)
     {
         return await _context.Clientes.FindAsync(id);
     }
 
-    public async Task<int> CriarPedidoAsync(PedidoSql pedido)
+    public async Task<string> CriarPedidoAsync(PedidoSql pedido)
     {
+        pedido.Id = Guid.NewGuid().ToString();
         _context.Pedidos.Add(pedido);
         await _context.SaveChangesAsync();
 
         foreach (var item in pedido.Itens)
         {
+            item.Id = Guid.NewGuid().ToString();
             item.PedidoId = pedido.Id;
             _context.Itens.Add(item);
         }
@@ -41,7 +44,7 @@ public class SqlRepository
         return pedido.Id;
     }
 
-    public async Task<PedidoSql?> ObterPedidoAsync(int id)
+    public async Task<PedidoSql?> ObterPedidoAsync(string id)
     {
         var pedido = await _context.Pedidos.FindAsync(id);
         if (pedido != null)

@@ -38,12 +38,12 @@ public class PedidosController : ControllerBase
         }
     }
 
-    [HttpGet("clientes/{mongoId}/{sqlId:int}")]
-    public async Task<IActionResult> BuscarCliente(string mongoId, int sqlId)
+    [HttpGet("clientes/{id}")]
+    public async Task<IActionResult> BuscarCliente(string id)
     {
         try
         {
-            var resultado = await _pedidosService.BuscarClienteAsync(mongoId, sqlId);
+            var resultado = await _pedidosService.BuscarClienteAsync(id);
             return Ok(resultado);
         }
         catch (Exception ex)
@@ -58,9 +58,9 @@ public class PedidosController : ControllerBase
     {
         try
         {
-            if (string.IsNullOrWhiteSpace(pedidoDto.ClienteId) || pedidoDto.SqlClienteId <= 0)
+            if (string.IsNullOrWhiteSpace(pedidoDto.ClienteId))
             {
-                return BadRequest("ClienteId (MongoDB) e SqlClienteId são obrigatórios");
+                return BadRequest("ClienteId é obrigatório");
             }
 
             if (!pedidoDto.Itens.Any())
@@ -78,12 +78,12 @@ public class PedidosController : ControllerBase
         }
     }
 
-    [HttpGet("pedidos/{mongoId}/{sqlId:int}")]
-    public async Task<IActionResult> BuscarPedido(string mongoId, int sqlId)
+    [HttpGet("pedidos/{id}")]
+    public async Task<IActionResult> BuscarPedido(string id)
     {
         try
         {
-            var resultado = await _pedidosService.BuscarPedidoAsync(mongoId, sqlId);
+            var resultado = await _pedidosService.BuscarPedidoAsync(id);
             return Ok(resultado);
         }
         catch (Exception ex)
@@ -99,6 +99,17 @@ public class PedidosController : ControllerBase
         return Ok(new
         {
             Titulo = "Comparação SQL vs NoSQL - Aula 010",
+            IdUnico = new
+            {
+                Estrategia = "GUID único para ambos os bancos",
+                Vantagens = new[]
+                {
+                    "Mesmo ID em ambas as bases",
+                    "Facilita comparações diretas",
+                    "Elimina confusão com múltiplos IDs",
+                    "Permite distribuição sem conflitos"
+                }
+            },
             SqlServer = new
             {
                 Tipo = "Banco Relacional (RDBMS)",

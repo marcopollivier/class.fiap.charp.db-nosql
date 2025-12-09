@@ -15,9 +15,10 @@ public class MongoRepository
 
     public async Task<string> CriarClienteAsync(Cliente cliente)
     {
+        cliente.Id = Guid.NewGuid().ToString();
         var collection = _database.GetCollection<Cliente>("clientes");
         await collection.InsertOneAsync(cliente);
-        return cliente.Id!;
+        return cliente.Id;
     }
 
     public async Task<Cliente?> ObterClienteAsync(string id)
@@ -28,9 +29,10 @@ public class MongoRepository
 
     public async Task<string> CriarPedidoAsync(Pedido pedido)
     {
+        pedido.Id = Guid.NewGuid().ToString();
         var collection = _database.GetCollection<Pedido>("pedidos");
         await collection.InsertOneAsync(pedido);
-        return pedido.Id!;
+        return pedido.Id;
     }
 
     public async Task<Pedido?> ObterPedidoAsync(string id)
