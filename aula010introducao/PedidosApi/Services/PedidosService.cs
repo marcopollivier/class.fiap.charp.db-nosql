@@ -16,9 +16,6 @@ public class PedidosService
         _logger = logger;
     }
 
-    /// <summary>
-    /// Cria um cliente em ambos os bancos de dados para demonstrar as diferenças
-    /// </summary>
     public async Task<object> CriarClienteAsync(ClienteDto clienteDto)
     {
         try
@@ -57,9 +54,6 @@ public class PedidosService
         }
     }
 
-    /// <summary>
-    /// Busca um cliente em ambos os bancos para comparação
-    /// </summary>
     public async Task<object> BuscarClienteAsync(string mongoId, int sqlId)
     {
         try
@@ -92,9 +86,6 @@ public class PedidosService
         }
     }
 
-    /// <summary>
-    /// Cria um pedido em ambos os bancos para demonstrar modelagem de dados
-    /// </summary>
     public async Task<object> CriarPedidoAsync(PedidoDto pedidoDto)
     {
         try
@@ -150,9 +141,6 @@ public class PedidosService
         }
     }
 
-    /// <summary>
-    /// Busca um pedido em ambos os bancos para comparação de modelagem
-    /// </summary>
     public async Task<object> BuscarPedidoAsync(string mongoId, int sqlId)
     {
         try

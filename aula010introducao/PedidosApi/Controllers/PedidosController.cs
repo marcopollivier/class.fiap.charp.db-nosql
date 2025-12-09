@@ -18,15 +18,7 @@ public class PedidosController : ControllerBase
         _logger = logger;
     }
 
-    /// <summary>
-    /// Cria um cliente em ambos os bancos de dados (SQL Server e MongoDB)
-    /// Demonstra as diferentes abordagens de ID e estrutura
-    /// </summary>
-    /// <param name="clienteDto">Dados do cliente</param>
-    /// <returns>IDs gerados em ambos os bancos</returns>
     [HttpPost("clientes")]
-    [ProducesResponseType(200)]
-    [ProducesResponseType(400)]
     public async Task<IActionResult> CriarCliente([FromBody] ClienteDto clienteDto)
     {
         try
@@ -46,16 +38,7 @@ public class PedidosController : ControllerBase
         }
     }
 
-    /// <summary>
-    /// Busca um cliente em ambos os bancos para comparação
-    /// Demonstra as diferentes formas de consulta
-    /// </summary>
-    /// <param name="mongoId">ID do cliente no MongoDB (ObjectId)</param>
-    /// <param name="sqlId">ID do cliente no SQL Server (int)</param>
-    /// <returns>Cliente de ambos os bancos com comparação</returns>
     [HttpGet("clientes/{mongoId}/{sqlId:int}")]
-    [ProducesResponseType(200)]
-    [ProducesResponseType(404)]
     public async Task<IActionResult> BuscarCliente(string mongoId, int sqlId)
     {
         try
@@ -70,15 +53,7 @@ public class PedidosController : ControllerBase
         }
     }
 
-    /// <summary>
-    /// Cria um pedido em ambos os bancos de dados
-    /// Demonstra modelagem relacional vs documento embarcado
-    /// </summary>
-    /// <param name="pedidoDto">Dados do pedido</param>
-    /// <returns>IDs do pedido em ambos os bancos</returns>
     [HttpPost("pedidos")]
-    [ProducesResponseType(200)]
-    [ProducesResponseType(400)]
     public async Task<IActionResult> CriarPedido([FromBody] PedidoDto pedidoDto)
     {
         try
@@ -103,16 +78,7 @@ public class PedidosController : ControllerBase
         }
     }
 
-    /// <summary>
-    /// Busca um pedido em ambos os bancos para comparação
-    /// Demonstra diferenças na recuperação de dados relacionados
-    /// </summary>
-    /// <param name="mongoId">ID do pedido no MongoDB (ObjectId)</param>
-    /// <param name="sqlId">ID do pedido no SQL Server (int)</param>
-    /// <returns>Pedido de ambos os bancos com comparação</returns>
     [HttpGet("pedidos/{mongoId}/{sqlId:int}")]
-    [ProducesResponseType(200)]
-    [ProducesResponseType(404)]
     public async Task<IActionResult> BuscarPedido(string mongoId, int sqlId)
     {
         try
@@ -127,11 +93,7 @@ public class PedidosController : ControllerBase
         }
     }
 
-    /// <summary>
-    /// Endpoint educacional que explica as diferenças entre SQL e NoSQL
-    /// </summary>
     [HttpGet("comparacao")]
-    [ProducesResponseType(200)]
     public IActionResult ObterComparacao()
     {
         return Ok(new
