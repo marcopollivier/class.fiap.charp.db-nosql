@@ -45,6 +45,7 @@ Sistema de Pedidos Unificado
 ### Por que Esta Arquitetura?
 
 **Simplicidade Educacional:**
+
 - Um único endpoint cria dados em ambos os bancos
 - Resposta mostra IDs de ambos para comparação
 - Demonstra diferenças na prática sem complexidade

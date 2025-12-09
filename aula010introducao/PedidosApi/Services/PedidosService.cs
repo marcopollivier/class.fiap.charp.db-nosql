@@ -99,6 +99,7 @@ public class PedidosService
                 DataPedido = DateTime.UtcNow,
                 Itens = pedidoDto.Itens.Select(i => new Item
                 {
+                    Id = Guid.NewGuid().ToString(),
                     Nome = i.Nome,
                     Preco = i.Preco,
                     Quantidade = i.Quantidade
@@ -113,6 +114,7 @@ public class PedidosService
                 DataPedido = DateTime.UtcNow,
                 Itens = pedidoDto.Itens.Select(i => new Models.Sql.ItemSql
                 {
+                    Id = Guid.NewGuid().ToString(),
                     Nome = i.Nome,
                     Preco = i.Preco,
                     Quantidade = i.Quantidade
