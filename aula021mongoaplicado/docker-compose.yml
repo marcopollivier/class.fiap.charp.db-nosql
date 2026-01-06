@@ -1,10 +1,10 @@
-version: '3.8'
+version: "3.8"
 
 services:
   # MongoDB
   mongodb:
     image: mongo:7.0
-    container_name: aula02-mongodb
+    container_name: aula021-mongodb
     restart: unless-stopped
     ports:
       - "27017:27017"
@@ -13,6 +13,29 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: password123
     volumes:
       - mongodb_data:/data/db
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/pedidos --quiet
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # API
+  pedidos-api:
+    build:
+      context: ./PedidosApi
+      dockerfile: Dockerfile
+    container_name: aula021-pedidos-api
+    restart: unless-stopped
+    ports:
+      - "5021:5021"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:5021
+      - ConnectionStrings__MongoDB=mongodb://admin:password123@mongodb:27017
+      - DatabaseSettings__MongoDbDatabaseName=pedidos
+    depends_on:
+      mongodb:
+        condition: service_healthy
 
 volumes:
   mongodb_data:

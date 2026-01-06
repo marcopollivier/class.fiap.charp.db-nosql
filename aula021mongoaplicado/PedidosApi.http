@@ -1,0 +1,65 @@
+### Criar Cliente
+POST http://localhost:5021/api/clientes
+Content-Type: application/json
+
+{
+  "nome": "João da Silva",
+  "email": "joao@exemplo.com"
+}
+
+###
+
+### Listar Clientes
+GET http://localhost:5021/api/clientes
+
+###
+
+### Buscar Cliente por ID
+GET http://localhost:5021/api/clientes/{{clienteId}}
+
+###
+
+### Criar Pedido
+POST http://localhost:5021/api/pedidos
+Content-Type: application/json
+
+{
+  "clienteId": "{{clienteId}}",
+  "itens": [
+    {
+      "nome": "Notebook Dell",
+      "preco": 2500.00,
+      "quantidade": 1
+    },
+    {
+      "nome": "Mouse Wireless",
+      "preco": 50.00,
+      "quantidade": 2
+    }
+  ]
+}
+
+###
+
+### Listar Pedidos
+GET http://localhost:5021/api/pedidos
+
+###
+
+### Buscar Pedido por ID
+GET http://localhost:5021/api/pedidos/{{pedidoId}}
+
+###
+
+### Listar Pedidos de um Cliente
+GET http://localhost:5021/api/clientes/{{clienteId}}/pedidos
+
+###
+
+### Informações da API
+GET http://localhost:5021/api/info
+
+###
+
+### Swagger UI
+GET http://localhost:5021
