@@ -90,7 +90,7 @@ cd aula010introducao/
 make up
 
 # 4. Ou use Docker Compose diretamente
-docker-compose up -d
+docker compose up -d
 
 # 5. Para projetos .NET
 dotnet restore
@@ -109,8 +109,8 @@ make down    # Para e limpa
 **Com Docker Compose:**
 
 ```bash
-docker-compose up -d    # Sobe os serviços
-docker-compose down     # Para os serviços
+docker compose up -d    # Sobe os serviços
+docker compose down     # Para os serviços
 ```
 
 ## 🎯 Dicas de Estudo
