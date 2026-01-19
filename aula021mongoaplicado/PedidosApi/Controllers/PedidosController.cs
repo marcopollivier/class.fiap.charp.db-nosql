@@ -72,6 +72,55 @@ public class PedidosController : ControllerBase
         }
     }
 
+    [HttpPut("clientes/{id}")]
+    public async Task<IActionResult> AtualizarCliente(string id, [FromBody] ClienteDto clienteDto)
+    {
+        try
+        {
+            if (string.IsNullOrWhiteSpace(clienteDto.Nome) || string.IsNullOrWhiteSpace(clienteDto.Email))
+            {
+                return BadRequest("Nome e Email são obrigatórios");
+            }
+
+            var sucesso = await _pedidosService.AtualizarClienteAsync(id, clienteDto);
+            if (!sucesso)
+            {
+                return NotFound("Cliente não encontrado");
+            }
+
+            return NoContent(); // 204 - atualização bem-sucedida
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Erro ao atualizar cliente");
+            return StatusCode(500, "Erro interno do servidor");
+        }
+    }
+
+    [HttpDelete("clientes/{id}")]
+    public async Task<IActionResult> DeletarCliente(string id)
+    {
+        try
+        {
+            var sucesso = await _pedidosService.DeletarClienteAsync(id);
+            if (!sucesso)
+            {
+                return NotFound("Cliente não encontrado");
+            }
+
+            return NoContent(); // 204 - deleção bem-sucedida
+        }
+        catch (InvalidOperationException ex)
+        {
+            return Conflict(ex.Message); // 409 - conflito (cliente possui pedidos)
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Erro ao deletar cliente");
+            return StatusCode(500, "Erro interno do servidor");
+        }
+    }
+
     // Endpoints de Pedido
     [HttpPost("pedidos")]
     public async Task<IActionResult> CriarPedido([FromBody] PedidoDto pedidoDto)

@@ -62,7 +62,7 @@ Sistema de Pedidos Unificado
 
 ```bash
 # Na pasta da aula
-docker-compose up -d
+docker compose up -d
 ```
 
 Isso vai subir:

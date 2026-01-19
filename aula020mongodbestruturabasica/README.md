@@ -172,7 +172,7 @@ db.pedidos.aggregate([
 ```text
 aula020mongodbestruturabasica/
 ├── Makefile                    # Automação (make up/down)
-├── docker-compose.yml          # Configuração do MongoDB
+├── docker compose.yml          # Configuração do MongoDB
 ├── init-mongo.js              # Script com dados iniciais
 ├── README.md                  # Esta documentação
 └── data/

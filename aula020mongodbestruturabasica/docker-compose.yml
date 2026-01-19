@@ -12,3 +12,4 @@ services:
     volumes:
       - ./data/db:/data/db
       - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+

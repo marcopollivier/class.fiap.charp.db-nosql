@@ -1,4 +1,4 @@
-DOCKER_COMPOSE = docker compose -f docker-compose.yml
+DOCKER_COMPOSE = docker compose -f docker compose.yml
 POSTGRES_USER = pguser
 POSTGRES_DB = pedidosdb
 POSTGRES_PASSWORD = pgpass

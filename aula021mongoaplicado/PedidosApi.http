@@ -3,8 +3,8 @@ POST http://localhost:5021/api/clientes
 Content-Type: application/json
 
 {
-  "nome": "João da Silva",
-  "email": "joao@exemplo.com"
+  "nome": "Carlos Correa",
+  "email": "carlos@gmail.com"
 }
 
 ###
@@ -16,6 +16,22 @@ GET http://localhost:5021/api/clientes
 
 ### Buscar Cliente por ID
 GET http://localhost:5021/api/clientes/{{clienteId}}
+
+###
+
+### Atualizar Cliente
+PUT http://localhost:5021/api/clientes/695d7c28ae76d6dd525a4953
+Content-Type: application/json
+
+{
+  "nome": "Carlos Correa",
+  "email": "carlos.correa@gmail.com"
+}
+
+###
+
+### Deletar Cliente
+DELETE http://localhost:5021/api/clientes/695d82487301ef8f072475de
 
 ###
 

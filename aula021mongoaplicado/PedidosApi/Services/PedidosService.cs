@@ -69,6 +69,78 @@ public class PedidosService
         }
     }
 
+    public async Task<bool> AtualizarClienteAsync(string id, ClienteDto clienteDto)
+    {
+        try
+        {
+            _logger.LogInformation("Atualizando cliente com ID: {Id}", id);
+
+            // Verificar se o cliente existe
+            var clienteExistente = await _mongoRepository.ObterClienteAsync(id);
+            if (clienteExistente == null)
+            {
+                _logger.LogWarning("Cliente com ID {Id} não encontrado para atualização", id);
+                return false;
+            }
+
+            // Atualizar os dados
+            clienteExistente.Nome = clienteDto.Nome;
+            clienteExistente.Email = clienteDto.Email;
+
+            var sucesso = await _mongoRepository.AtualizarClienteAsync(clienteExistente);
+
+            if (sucesso)
+            {
+                _logger.LogInformation("Cliente com ID {Id} atualizado com sucesso", id);
+            }
+            else
+            {
+                _logger.LogWarning("Falha ao atualizar cliente com ID {Id}", id);
+            }
+
+            return sucesso;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Erro ao atualizar cliente com ID: {Id}", id);
+            throw;
+        }
+    }
+
+    public async Task<bool> DeletarClienteAsync(string id)
+    {
+        try
+        {
+            _logger.LogInformation("Deletando cliente com ID: {Id}", id);
+
+            // Verificar se o cliente possui pedidos
+            var pedidosDoCliente = await _mongoRepository.ListarPedidosPorClienteAsync(id);
+            if (pedidosDoCliente.Any())
+            {
+                _logger.LogWarning("Tentativa de deletar cliente com ID {Id} que possui {QuantidadePedidos} pedidos", id, pedidosDoCliente.Count);
+                throw new InvalidOperationException("Não é possível deletar cliente que possui pedidos. Delete os pedidos primeiro.");
+            }
+
+            var sucesso = await _mongoRepository.DeletarClienteAsync(id);
+
+            if (sucesso)
+            {
+                _logger.LogInformation("Cliente com ID {Id} deletado com sucesso", id);
+            }
+            else
+            {
+                _logger.LogWarning("Cliente com ID {Id} não foi encontrado para deleção", id);
+            }
+
+            return sucesso;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Erro ao deletar cliente com ID: {Id}", id);
+            throw;
+        }
+    }
+
     // Operações de Pedido
     public async Task<string> CriarPedidoAsync(PedidoDto pedidoDto)
     {

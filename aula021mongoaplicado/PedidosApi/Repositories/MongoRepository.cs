@@ -32,6 +32,20 @@ public class MongoRepository
         return await collection.Find(_ => true).ToListAsync();
     }
 
+    public async Task<bool> AtualizarClienteAsync(Cliente cliente)
+    {
+        var collection = _database.GetCollection<Cliente>("clientes");
+        var result = await collection.ReplaceOneAsync(c => c.Id == cliente.Id, cliente);
+        return result.ModifiedCount > 0;
+    }
+
+    public async Task<bool> DeletarClienteAsync(string id)
+    {
+        var collection = _database.GetCollection<Cliente>("clientes");
+        var result = await collection.DeleteOneAsync(c => c.Id == id);
+        return result.DeletedCount > 0;
+    }
+
     // Operações de Pedido
     public async Task<string> CriarPedidoAsync(Pedido pedido)
     {

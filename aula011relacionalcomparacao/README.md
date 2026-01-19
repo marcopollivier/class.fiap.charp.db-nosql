@@ -60,7 +60,7 @@ CREATE TABLE itens_pedido (
 ### 1. Subir os Bancos
 
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 
 Isso vai criar:

@@ -44,8 +44,8 @@ PedidosApi/
 # Subir todos os serviços
 make up
 
-# Ou usando docker-compose diretamente
-docker-compose up -d
+# Ou usando docker compose diretamente
+docker compose up -d
 ```
 
 ### Desenvolvimento Local
