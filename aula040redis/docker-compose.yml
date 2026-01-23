@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   # Redis
@@ -22,6 +22,21 @@ services:
     command: redis-sentinel /etc/redis/sentinel.conf
     volumes:
       - ./sentinel.conf:/etc/redis/sentinel.conf
+    depends_on:
+      - redis
+
+  # API .NET
+  api:
+    build: .
+    container_name: aula04-redis-api
+    restart: unless-stopped
+    ports:
+      - "5001:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__Redis=redis:6379
+      - Redis__Password=password123
+      - ASPNETCORE_HTTP_PORTS=8080
     depends_on:
       - redis
 

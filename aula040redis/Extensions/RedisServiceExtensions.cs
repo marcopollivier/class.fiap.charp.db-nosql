@@ -1,4 +1,5 @@
 using StackExchange.Redis;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 
 namespace PedidosApi.Extensions;
 

@@ -28,7 +28,7 @@ public class RedisExamplesController : ControllerBase
         if (produtoCache.HasValue)
         {
             _logger.LogInformation("Cache HIT para produto {Id}", id);
-            return Ok(new { source = "cache", data = JsonSerializer.Deserialize<object>(produtoCache) });
+            return Ok(new { source = "cache", data = JsonSerializer.Deserialize<object>(produtoCache.ToString()) });
         }
 
         _logger.LogInformation("Cache MISS para produto {Id}", id);
@@ -136,7 +136,8 @@ public class RedisExamplesController : ControllerBase
 
         var posicao = await _redis.SortedSetRankAsync("leaderboard:mensal", request.Jogador, Order.Descending);
 
-        return Ok(new {
+        return Ok(new
+        {
             jogador = request.Jogador,
             pontos = request.Pontos,
             posicao = posicao + 1
@@ -176,13 +177,14 @@ public class RedisExamplesController : ControllerBase
         const int LIMITE = 10;
         if (tentativas > LIMITE)
         {
-            Response.Headers.Add("X-RateLimit-Remaining", "0");
+            Response.Headers["X-RateLimit-Remaining"] = "0";
             return StatusCode(429, "Rate limit exceeded. Máximo 10 requests por minuto.");
         }
 
-        Response.Headers.Add("X-RateLimit-Remaining", (LIMITE - tentativas).ToString());
+        Response.Headers["X-RateLimit-Remaining"] = (LIMITE - tentativas).ToString();
 
-        return Ok(new {
+        return Ok(new
+        {
             message = "API acessada com sucesso",
             tentativasRestantes = LIMITE - tentativas
         });
@@ -211,7 +213,8 @@ public class RedisExamplesController : ControllerBase
         // Simular processamento
         await Task.Delay(100);
 
-        return Ok(new {
+        return Ok(new
+        {
             message = "Pedido processado",
             pedidoId = pedidoId.ToString()
         });
@@ -221,19 +224,25 @@ public class RedisExamplesController : ControllerBase
     [HttpGet("redis-info")]
     public async Task<IActionResult> ObterInfoRedis()
     {
-        var server = _redis.Multiplexer.GetServer(_redis.Multiplexer.GetEndPoints().First());
-        var info = await server.InfoAsync();
-
-        var infoRelevante = new
+        try
         {
-            Versao = info.FirstOrDefault(i => i.Key == "redis_version")?.Value,
-            UptimeSegundos = info.FirstOrDefault(i => i.Key == "uptime_in_seconds")?.Value,
-            ClientesConectados = info.FirstOrDefault(i => i.Key == "connected_clients")?.Value,
-            MemoriaUsada = info.FirstOrDefault(i => i.Key == "used_memory_human")?.Value,
-            TotalChaves = await _redis.ExecuteAsync("DBSIZE")
-        };
+            var totalChaves = await _redis.ExecuteAsync("DBSIZE");
+            var ping = await _redis.PingAsync();
 
-        return Ok(infoRelevante);
+            var infoRelevante = new
+            {
+                Status = "Conectado",
+                TotalChaves = totalChaves,
+                PingMs = ping.TotalMilliseconds,
+                Timestamp = DateTime.UtcNow
+            };
+
+            return Ok(infoRelevante);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { Error = "Erro ao obter informações do Redis", Details = ex.Message });
+        }
     }
 }
 
