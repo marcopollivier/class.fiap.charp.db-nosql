@@ -375,3 +375,7 @@ aula020mongodbestruturabasica/data/*
 !aula020mongodbestruturabasica/data/db/.gitkeep
 
 aula030mongoavancado/doc/*
+
+# Process files
+*.pid
+app.pid
